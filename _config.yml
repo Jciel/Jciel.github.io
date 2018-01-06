@@ -1,0 +1,43 @@
+# Site settings
+title: Jociel Souza
+description: 'Desenvolvedor Web - Backend - PHP'
+url: 'https://jciel.github.io'
+#baseurl: 'http://localhost:4000/'
+# google_analytics: 'UA-XXXXXX-X'
+disqus_shortname: 'jociel Souza'
+
+author:
+  name: 'Jociel Souza'
+  email: jcielsouza@gmail.com
+#  twitter_username:
+  facebook_username: jociel.svs
+  github_username:  Jciel
+  linkedin_username:  jcielsouza
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
+
+sass:
+    sass_dir: _sass
+    style: compressed
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']

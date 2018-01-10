@@ -11,18 +11,31 @@
         <a href="{{ site.baseurl }}/" title="link to home of {{ site.title }}">
           <img src="{{ site.baseurl }}/images/profile.jpg" class="user-image" alt="My Profile Photo">
           <h1 class="panel-cover__title panel-title">{{ site.title }}</h1>
-          <p class="panel-cover__description"><i class="icon icon-web"></i><br> {{ site.description }}</p>
+
+          <div class="skills">
+            <img src="{{ site.baseurl }}/images/php128.png" class="tecnology" alt="PHP">
+            <img src="{{ site.baseurl }}/images/clojure128.png" class="tecnology" alt="Clojure">
+            <img src="{{ site.baseurl }}/images/javascript128.png" class="tecnology" alt="Javascript">
+            <img src="{{ site.baseurl }}/images/mongodb128.png" class="tecnology" alt="Mongodb">
+            <img src="{{ site.baseurl }}/images/zendFramework128.png" class="tecnology" alt="ZendFramework">
+          </div>
+
+         <!--<i class="icon icon-web"></i>-->
+          <p class="panel-cover__description"><br> {{ site.description }}</p>
         </a>
+
       <hr class="panel-cover__divider">
-        <p class="panel-cover__description">
+
+      <p class="panel-cover__description">
           Estudante de Ciência da Computação, desenvolvedor de software
           apaixonado por tecnologia e entusiasta de empreendedorismo,
         </p>
+
         <hr class="panel-cover__divider panel-cover__divider--secondary">
 
       <p class="panel-cover__description">
         Possuo conhecimentos em <strong>HTML, javascript, PHP7, ZendFramework 3,
-        Doctrine ORM, Doctrine Mongo ODM e GIT</strong> entre outros, atualmente estudando
+        Doctrine ORM, Doctrine Mongo ODM, MongoDB e GIT</strong> entre outros, atualmente estudando
         também Clojure e paradigma funcional
 
 

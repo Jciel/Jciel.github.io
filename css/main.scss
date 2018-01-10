@@ -57,3 +57,15 @@ pre.highlight code,
   border: 3px solid #fff;
   border-radius:100%;
 }
+
+.skills {
+  display:         flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skills .tecnology {
+  width: 24px;
+  margin-left: 10px;
+}

@@ -11,7 +11,7 @@
         <a href="{{ site.baseurl }}/" title="link to home of {{ site.title }}">
           <img src="{{ site.baseurl }}/images/profile.jpg" class="user-image" alt="My Profile Photo">
           <h1 class="panel-cover__title panel-title">{{ site.title }}</h1>
-          <p class="panel-cover__description">{{ site.description }}</p>
+          <p class="panel-cover__description"><i class="icon icon-web"></i><br> {{ site.description }}</p>
         </a>
       <hr class="panel-cover__divider">
         <p class="panel-cover__description">
@@ -24,6 +24,9 @@
         Possuo conhecimentos em <strong>HTML, javascript, PHP7, ZendFramework 3,
         Doctrine ORM, Doctrine Mongo ODM e GIT</strong> entre outros, atualmente estudando
         também Clojure e paradigma funcional
+
+
+
       </p>
 
         <hr class="panel-cover__divider panel-cover__divider--secondary">
@@ -74,6 +77,15 @@
               <li class="navigation__item">
                 <a href="https://www.github.com/{{ site.author.github_username }}" title="{{ site.author.github_username }} on GitHub" target="_blank">
                   <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if site.author.medium %}
+              <li class="navigation__item">
+                <a href="https://medium.com/@{{ site.author.medium }}" title="{{ site.author.medium }} on Medium" target="_blank">
+                  <i class="icon icon-social-medium"></i>
                   <span class="label">GitHub</span>
                 </a>
               </li>

@@ -1,4 +1,3 @@
-Banco Neon - Boleto---
 title:  "Welcome to Jekyll!"
 date:   2016-01-08 15:04:23
 categories: [jekyll]

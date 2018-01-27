@@ -4,7 +4,8 @@ description: 'Desenvolvedor Web - Backend - PHP'
 url: 'https://jciel.github.io'
 #baseurl: 'http://localhost:4000/'
 google_analytics: 'UA-112552613-1'
-disqus_shortname: 'jociel Souza'
+disqus_shortname: 'https-jciel-github-io'
+
 
 author:
   name: 'Jociel Souza'

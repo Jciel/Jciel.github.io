@@ -4,8 +4,8 @@ title: "Doctrine MongoDB ODM com ZF3 - Instalação, configuração e primeiro u
 date: 2017-08-20 14:39:38 -0300
 categories: deselvolvimento
 author:
-  name: "Jociel Souza"
-  email: "jcielsouza@gmail.com"
+  name: {{ author.name }}
+  email: {{ author.email }}
 ---
 
 O Doctrine MongoDB ODM (Object Document Mapper), é um framework de mapeamento documento-objeto que fornece uma melhor forma de manipular, persistir objetos do PHP no MogoDB

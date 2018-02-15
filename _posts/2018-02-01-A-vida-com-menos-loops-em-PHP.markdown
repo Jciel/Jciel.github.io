@@ -8,11 +8,14 @@ author:
   email: {{ author.email }}
 ---
 
-O array é umas das estruturas de dados mais conhecidas e utilizadas em PHP, um array é na verdade um mapa ordenado, uma estrutura que relaciona valores a chaves, e para manipular/usar os elementos de um array frequentemente utilizamos loops como for, foreach, entre outros, mas existem funções que podemos usar e que deixam nosso código mais legível e facilitam o entendimento, mas que poucas vezes são usados, vamos dar uma olhada em algumas dessas funções.
+O array é umas das estruturas de dados mais conhecidas e utilizadas em PHP, um array é na verdade um mapa ordenado, uma estrutura que relaciona valores a chaves, e para manipular/usar os elementos de um array frequentemente utilizamos loops como for, foreach, entre outros, mas existem funções que podemos usar e que deixam nosso código mais legível e facilitam o entendimento, mas que poucas vezes são usados, vamos dar uma olhada em algumas dessas funções.  
 
-![loop](http://i64.tinypic.com/11gn987.jpg)
-  
-  
+<div class="img-container">
+	<img src="http://i64.tinypic.com/11gn987.jpg">
+</div>
+
+<br>
+
 __array_seach__  
 Começando com algo mais simples, array_seach pesquisa por um valor no array passado e retorna a chave desse valor caso exista.
 <script src="https://gist.github.com/Jciel/52d90dacc47f7e60d740f21e79d4e0b0.js"></script>

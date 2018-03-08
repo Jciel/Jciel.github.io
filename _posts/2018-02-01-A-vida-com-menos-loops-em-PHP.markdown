@@ -3,6 +3,7 @@ layout: post
 title: "A vida com menos loops em PHP"
 date: 2018-02-01 14:39:38 -0300
 categories: deselvolvimento
+excerpt: O array é umas das estruturas de dados mais conhecidas e utilizadas em PHP, um array é na verdade um mapa ordenado, uma estrutura que relaciona valores a chaves, e para manipular/usar os elementos...
 author:
   name: {{ author.name }}
   email: {{ author.email }}

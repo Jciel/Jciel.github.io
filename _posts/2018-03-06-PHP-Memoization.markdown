@@ -3,6 +3,7 @@ layout: post
 title: "PHP-Memoization"
 date: 2018-03-06 16:58:25 -0300
 categories: deselvolvimento
+excerpt: Memoization é uma técnica para otimizar chamadas de funções de alto custo de processamento, com isso podemos guardar o resultado de chamadas de funções para uma lista de determinados parâmetros evitando um recalculo de valores já processados...
 author:
   name: {{ author.name }}
   email: {{ author.email }}
@@ -12,7 +13,7 @@ Memoization é uma técnica para otimizar chamadas de funções de alto custo de
 
 <div class="img-container">
 	<figure>
-		<img src="https://images.unsplash.com/photo-1503252947848-7338d3f92f31?ixlib=rb-0.3.5&s=1da26ff2fa38248c061978d07ed4b84a&auto=format&fit=crop&w=1489&q=80">
+		<img src="{{ site.baseurl }}/images/nate-grant.jpg">
 		<figcaption>
 		Imagem de Nate Grant em Unsplash
 		</figcaption>

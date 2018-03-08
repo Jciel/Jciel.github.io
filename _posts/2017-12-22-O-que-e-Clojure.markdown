@@ -3,6 +3,7 @@ layout: post
 title: "O que é Clojure"
 date: 2017-12-22 14:39:38 -0300
 categories: deselvolvimento
+excerpt: Clojure é uma linguagem de programação dinâmica, de propósito geral com ênfase em programação funcional criada por Rich Hickey. Clojure roda sob a JVM (máquina virtual do Java), compila para bytecode como o Java faz, ainda existe a possibilidade de compilar para...
 author:
   name: {{ author.name }}
   email: {{ author.email }}

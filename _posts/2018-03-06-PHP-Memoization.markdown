@@ -13,7 +13,7 @@ Memoization é uma técnica para otimizar chamadas de funções de alto custo de
 
 <div class="img-container">
 	<figure>
-		<img src="{{ site.baseurl }}/images/nate-grant.jpg">
+		<img class="graf-image" data-image-id="1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" data-width="5975" data-height="3362" src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg">
 		<figcaption>
 		Imagem de Nate Grant em Unsplash
 		</figcaption>

@@ -11,14 +11,10 @@ author:
 
 Memoization é uma técnica para otimizar chamadas de funções de alto custo de processamento, com isso podemos guardar o resultado de chamadas de funções para uma lista de determinados parâmetros evitando um recalculo de valores já processados, é fácil imaginar memoization como o cache do resultado de uma função a partir dos seus parâmetros.  
 
-<div class="img-container">
-	<figure>
-		<img class="graf-image" data-image-id="1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" data-width="5975" data-height="3362" src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg">
-		<figcaption>
-		Imagem de Nate Grant em Unsplash
-		</figcaption>
-	</figure>
-</div>
+
+
+![](https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg)
+<div class="img-legend">Nate Grant em Unsplash</div>
 
 <br>
 

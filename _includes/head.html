@@ -23,6 +23,15 @@
   {% endif %}
   <meta name="twitter:image" content="{{ site.baseurl }}/images/favicons/favicon-194x194.png" />
 
+  <meta name="linkedin:card" content="summary">
+  <meta name="linkedin:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="linkedin:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}{{ site.description }}{% endif %}">
+  {% if site.author.linkedin_username %}
+  <meta name="linkedin:creator" content="{{ site.author.twitter_username }}">
+  {% endif %}
+  <meta name="linkedin:image" content="{{ site.baseurl }}/images/favicons/favicon-194x194.png" />
+
+
   <meta property="og:type" content="article">
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}{{ site.description }}{% endif %}">

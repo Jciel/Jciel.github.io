@@ -60,7 +60,7 @@ Vamos ver como funciona e como podemos implementar essas técnicas.
 <br>
 <br>
 
-#### Lambda functions/Funções anônimas  
+#### __Lambda functions/Funções anônimas__  
 Funções anônimas simplesmente permite a criação de uma função sem
 nome específico, podendo ser atribuída a uma variável, passada
 como argumento para uma função ou como retorno de uma função.  

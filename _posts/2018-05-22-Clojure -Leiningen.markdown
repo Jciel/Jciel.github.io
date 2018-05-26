@@ -21,7 +21,7 @@ gerenciadores de dependências, que agilizam processos de instalação,
 remoção, atualização de dependências entre outras atividades.
 
 ![](https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png)
-<div class="img-legend">[Fonte](https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png)</div>
+<div class="img-legend"><a href="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png">Fonte</a></div>
 
 <br>
 

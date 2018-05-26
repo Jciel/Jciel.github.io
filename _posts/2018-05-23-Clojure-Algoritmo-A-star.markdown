@@ -60,7 +60,27 @@ Para esse exercício utilizei um grafo como na imagem a seguir, o objetivo
 
 <br>
 
-__Criando o projeto__  
+#### __Criando o projeto__  
+
+<br>
+Caso não saiba como criar um projeto, tem um artigo esplicando:
+<div id="ref-post">
+    <a href="{% post_url 2018-02-01-A-vida-com-menos-loops-em-PHP %}">
+        <img src="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png">
+        <div id="link-title">
+            Clojure - Leiningen
+        </div>
+        <div id="link-description">
+            Em projetos de software, sejam grandes ou pequenos, pela
+            facilidade e otimização do tempo, busca-se a reutilização de
+            código, isso inclui também a utilização de bibliotecas de
+            terceiros, gerenciar e manter...
+        </div>
+    </a>
+</div>
+
+<br>
+
 Vou criar um projeto chamado ``astar-algorithm-clojure`` utilizando o
 Liningen:
 

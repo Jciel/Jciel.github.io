@@ -1,7 +1,7 @@
 ---
 layout: post
 imageOg: "https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png"
-title: "Clojure-Algoritmo A* - Trabalho faculdade"
+title: "Clojure - Algoritmo A* - Trabalho faculdade"
 date: 2018-05-23 12:00:25 -0300
 categories: deselvolvimento
 excerpt: O algortimo A* (A estrela), é um algoritmo de busca, de caminho em grafo, heurística, algoritmos de busca heurística utilizam informações extras sobre o domínio problema...

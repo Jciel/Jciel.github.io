@@ -1,5 +1,6 @@
 ---
 layout: post
+imageOg: https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png
 title: "Clojure - Leiningen"
 date: 2018-05-22 12:00:25 -0300
 categories: deselvolvimento

@@ -64,10 +64,10 @@ Para esse exercício utilizei um grafo como na imagem a seguir, o objetivo
 #### __Criando o projeto__  
 
 <br>
-Caso não saiba como criar um projeto, tem um artigo sobre criação
-deprojetos e dependências:
+Caso não saiba como criar um projeto em clojure, tem um artigo sobre criação
+de projetos e dependências:
 <div id="ref-post">
-    <a href="{% post_url 2018-02-01-A-vida-com-menos-loops-em-PHP %}">
+    <a href="{% post_url 2018-05-22-Clojure -Leiningen %}">
         <img src="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png">
         <div id="link-title">
             Clojure - Leiningen
@@ -227,4 +227,6 @@ tecnologia que estou estudando.
 Não entrei em detalhes sobre a linguagem, espero escrever mais sobre
 futuramente, também como irá surgir novos trabalhos do curso tentarei
 resolvê-los utilizando Clojure e se possível escrever algo sobre também
-como forma de estudar.
+como forma de estudar.  
+
+Dúvidas, sugestões… podem deixar comentários, e compartilhar caso gostou :D.

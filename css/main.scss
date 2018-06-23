@@ -76,6 +76,8 @@ pre.highlight code,
 
 .img-container {
   text-align: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .img-legend {
@@ -109,4 +111,11 @@ pre.highlight code,
   text-decoration: none;
   color: #666666;
   line-height: 20px;
+}
+
+.post-subtitle {
+  padding: 0;
+  margin-top: -17px;
+  font-family: "Raleway", sans-serif;
+  color: #666666;
 }

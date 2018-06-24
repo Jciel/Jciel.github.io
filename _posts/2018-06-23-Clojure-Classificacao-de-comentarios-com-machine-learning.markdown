@@ -3,7 +3,7 @@ layout: post
 imageOg: "https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png"
 title: "Clojure - Classificação de comentários com Machine Learning"
 subtitle: Trabalho faculdade
-date: 2018-06-19 12:00:25 -0300
+date: 2018-06-23 12:00:25 -0300
 categories: deselvolvimento
 excerpt: Clacificação de textos consiste em associar cada texto a uma determinada classe baseada em seu conteúdo, por exemplo, podemos associar um comentário sobre um produto ou serviço a uma classe "Negativo" quando for um comentário negativo sobre o produto ou a...
 author:
@@ -139,7 +139,7 @@ treinamento e teste;
 processado por algum algoritmo de Machine Learning.  
 
 Os textos comumente possuem diversas palavras derivadas ou flexionadas, 
-o processo de stemmin reduz todas as palavras possíveis ao seu radical, 
+o processo de stemming reduz todas as palavras possíveis ao seu radical, 
 removendo prefixos e sufixos derivados de um mesmo radical, ajudando a 
 diminuir a dimensionalidade do processamento do texto porque palavras 
 diferentes derivadas de um mesmo radical, ambas passam a ser 
@@ -333,7 +333,8 @@ na raiz do projeto.
 <br>
 
 A função ``get-comment-and-class`` recebe uma string do comentário e sua 
-classe e retorna um map separando o comentário da classe no formato.  
+classe e retorna um map separando o comentário da classe, já passado pelo 
+pré-processamento, no formato.  
 ``{:comment comentario :class class}``
 <script src="https://gist.github.com/Jciel/f648d5cbd73d572eb26d2c61f68eb33a.js"></script>
 
@@ -368,7 +369,7 @@ separado para os comentários positivos e para os negativos.
 
 Usando o mesmo comentário anterior como exemplo, essa função retorna o 
 seguinte vetor.  
-``[{:class 0 :eu 1 :nao 1 :gostei 1 :desse 1 :filme 1} ...]``
+``[{:class 0 :eu 1 :nao 1 :gost 1 :desse 1 :film 1} ...]``
 
 <br>
 
@@ -413,7 +414,7 @@ referente a classe do comentário e definindo esse atributo como classe.
 <br>
 
 E a função que realiza o treinamento do classificador e a avaliação do 
-mesmo, no final imprimindo as informações de desempenho do algoritmo.  
+mesmo, logo após imprime as informações de desempenho do algoritmo.  
 <script src="https://gist.github.com/Jciel/822bb2ba0c296b8da4f8a93f7510ab60.js"></script>
 
 <br>
@@ -425,10 +426,10 @@ do classificador, assim mostrando as informações de desempenho do algoritmo.
 
 <br>
 
-Entrando no diretório raiz do projeto e executando o comando.  
-``lein run``
-iniciamos o processo de preparação, treinamento e teste do algoritmo 
-utilizado, assim que acabar irá mostrar os resultados da avaliação.  
+Entrando no diretório raiz do projeto e executando o comando ``lein run`` 
+para iniciar a execução do código. Inicia o processo de preparação, 
+treinamento e teste do algoritmo utilizado, assim que acabar irá mostrar 
+os resultados da avaliação.  
 
 As informações retornadas serão semelhantes a estas:  
 <script src="https://gist.github.com/Jciel/c942b238fe75e04e80135ea45e67ed0b.js"></script>
@@ -471,10 +472,12 @@ assim podem causar inconsistência no treinamento do algoritmo ocorrendo
 uma baixa qualidade nos resultados de teste, a qualidade do dataset tem 
 enorme influência nos resultados finais.
 
-* O processo de remoção de stopwords também pode influenciar no treinamento, 
-a lista de palavras consideradas tem de ser avaliada e observado se não 
-está removendo palavras que tenham importância para o contexto.
-
+* O processo de remoção de *stopwords* e *stemming* também pode influenciar 
+no treinamento, a lista de palavras consideradas como *stopwords* tem de 
+ser avaliada e observado se não está removendo palavras que tenham 
+importância para o contexto, realizei alguns testes com e sem o processo 
+de *stemming* e remoção de *stopwords* e o melhor resultado ocorreu deixando 
+os dois processos.
 
 <br>
 
@@ -482,7 +485,6 @@ O código completo podem ver [aqui](https://github.com/Jciel/comment-analysis)
 
 Dúvidas, sugestões, críticas… podem deixar nos comentários, e compartilhar caso gostou :D.
 
-<br>
 <br>
 <br>
 

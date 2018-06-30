@@ -5,7 +5,7 @@ title: "Clojure - Classificação de comentários com Machine Learning"
 subtitle: Trabalho faculdade
 date: 2018-06-23 12:00:25 -0300
 categories: deselvolvimento
-excerpt: Clacificação de textos consiste em associar cada texto a uma determinada classe baseada em seu conteúdo, por exemplo, podemos associar um comentário sobre um produto ou serviço a uma classe "Negativo" quando for um comentário negativo sobre o produto ou a...
+excerpt: Classificação de textos consiste em associar cada texto a uma determinada classe baseada em seu conteúdo, por exemplo, podemos associar um comentário sobre um produto ou serviço a uma classe "Negativo" quando for um comentário negativo sobre o produto ou a...
 author:
   name: {{ author.name }}
   email: {{ author.email }}
@@ -19,7 +19,7 @@ com Machine Learning.
 <br>
 
 
-Clacificação de textos consiste em associar cada texto a uma determinada classe 
+Classificação de textos consiste em associar cada texto a uma determinada classe 
 baseada em seu conteúdo, por exemplo, podemos associar um comentário 
 sobre um produto ou serviço a uma classe "Negativo" quando for um 
 comentário negativo sobre o produto ou a uma classe "Positivo" quando 

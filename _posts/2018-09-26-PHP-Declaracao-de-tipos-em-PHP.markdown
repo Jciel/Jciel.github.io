@@ -32,7 +32,7 @@ nome de classe.
 <br>
 
 ##### __PHP 7__  
-O PHP 7 trouxe muitas mudanças, além do desenpenho também possibilitou a 
+O PHP 7 trouxe muitas mudanças, além do desempenho também possibilitou a 
 definição de outros tipos escalares nos parâmetros de funções, *Scalar 
 typehinting*, permitindo declarar os tipos *int*, *float*, *string* e 
 *bool*. Além disso, podemos definir o tipo de retorno das 

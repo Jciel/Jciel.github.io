@@ -1,6 +1,6 @@
 ---
 layout: post
-imageOg: "https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png"
+imageOg: "https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg"
 title: "PHP - Declaração de tipos em PHP"
 subtitle: Typed Properties
 date: 2018-09-26 12:00:25 -0300

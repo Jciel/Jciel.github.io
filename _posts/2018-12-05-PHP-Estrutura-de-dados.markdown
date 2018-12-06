@@ -2,7 +2,7 @@
 layout: post
 imageOg: "https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg"
 title: "PHP - Standard PHP Library (SPL)"
-subtitle: Estrutura de dados e tipos abstratos de dados
+subtitle: Estrutura de dados e Tipos Abstratos de Dados
 date: 2018-09-26 12:00:25 -0300
 categories: deselvolvimento
 excerpt: Quem já estudou ou pesquisou por algoritmos provavelmente já ouviu falar 
@@ -29,14 +29,14 @@ Abstrato de dados.
 <br>
 
 #### __Tipos Abstratos de Dados__
-Temos alguns TADs já conhecidos e bastante utilizados, como Fila, Pilha, 
+Temos alguns TADs já conhecidos e bastante utilizados como Fila, Pilha, 
 Lista, Árvore, etc, esses Tipos Abstratos de Dados podem ser 
 divididos em dois grupos, lineares e não lineares.  
 
 Os TDA's lineares são estruturas onde os dados são arranjados 
 sequencialmente, estes possuem operações de adicionar ou remover 
 um item que podem seguir modos diferentes, vamos tomar como exemplo 
-uma ``Fila`` e uma ``Pilha``, vamos imaginar uma fila de caixa de um 
+uma ``Fila`` e uma ``Pilha``, vamos imaginar uma fila em um caixa de um 
 restaurante, quando uma pessoa entra na fila ela se posiciona atrás de 
 todas as outras pessoas, no final da fila, se uma outra pessoa chegar, 
 ela entra atrás desta, e assim por diante, seguindo esta lógica, as 
@@ -68,8 +68,8 @@ utilizar, será o primeiro a ser retirado.
 
 <br>
 
-Em relação às estruturas do tipo árvore existem diversos tipos, o que 
-iremos ver é uma Heap, Heap é uma árvore binária balanceada.  
+Em relação aos TDA's do tipo árvore existem diversos tipos, o que 
+iremos ver é uma Heap, que é uma árvore binária balanceada.  
 Uma árvore binária é uma estrutura formada por ``nós`` onde são 
 "guardados" os valores e cada ``nó`` pode ser "ligado" à no máximo dois 
 ``nós`` filhos, nesta estrutura os dados são dispostos de forma 
@@ -184,7 +184,7 @@ A Pilha também possui a operação para verificar se existe está vazia.
 ```php
 <?php
     $stack = SplStack();
-    echo $stack->isEmpty(); true
+    echo $stack->isEmpty(); // true
 ```
 
 <br>
@@ -256,14 +256,14 @@ início da lista e ``pop`` para remover do final da lista.
 ##### __Heap (Árvore Binária)__
 
 A classe SplHeap da SPL é uma classe abstrata que implementa uma série 
-de funcionalidades de uma Heap, sendo uma class abstrata para usar uma 
+de funcionalidades de uma Heap, sendo uma classe abstrata para usar uma 
 estrutura Heap da SPL é preciso usar as classes concretas ``SplMaxHeap`` 
 e ``SplMinHeap``. Para inserir um item usamos a operação ``insert``.  
 
 ##### __SplMaxHeap__
 A SplMaxHeap para definir a posição do valor a ser inserido na árvore 
-mantém sempre o maior valor como raiz da árvore, assim apresentando os 
-valores com uma ordenação descendente.  
+ela mantém sempre o maior valor como raiz da árvore, assim apresentando 
+os valores com uma ordenação decrescente.  
 
 ```php
 <?php
@@ -290,7 +290,7 @@ A saída apresentada será ``27, 23, 21, 15, 9, 6, 3, 1``.
 
 ##### __SplMinHeap__
 A ``SplMinHeap`` ao contrário da ``SplMaxHeap`` mantém o menor valor 
-como raiz da Árvore, apresentando os valores com ordenação ascendente.  
+como raiz da Árvore, apresentando os valores com ordenação crescente.  
 ```php
 <?php
     $tree = new SplMinHeap();
@@ -351,7 +351,7 @@ ele deve retornar ``-1`` caso o primeiro valor seja menor que o
 segundo, ``1`` caso contrário e ``0`` se ambos forem iguais.  
 O segundo parâmetro do método ``compare`` é o valor a ser inserido no 
 momento, no exemplo anterior a estrutura apresentará os valores em 
-ondem decrescente, para mostrar em ordem decrescente basta alterar a 
+ondem decrescente, para mostrar em ordem crescente basta alterar a 
 ordem de comparação no método ``compare``, ficando da seguinte maneira:  
 
 ```php
@@ -383,7 +383,7 @@ Assim quando formos percorrer os valores, será em ordem crescente.
     
     
     foreach ($personHeap as $person) {
-        echo $person→getAge();
+        echo $person->getAge();
     }
 ```
 Seguindo o primeiro exemplo, de forma descendente, a saída será ``39, 26, 15, 5, 3``.  
@@ -511,7 +511,7 @@ Podemos alterar o tamanho do array.
 
 #### __Conclusão__
 Como é bem pouco comentado a ideia é mostrar que existe também a 
-possibilidade de usar estrutura de dados em PHP e com a facilidade que 
+possibilidade de usarmos estrutura de dados em PHP e com a facilidade que 
 temos já abstraído várias estruturas com a SPL facilitando o uso, não 
 entrei em detalhes muito a fundo tanto das estruturas quanto de 
 algoritmos, quem for pesquisar mais sobre vai ver que estrutura de dados 

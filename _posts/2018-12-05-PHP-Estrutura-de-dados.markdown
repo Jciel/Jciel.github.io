@@ -3,7 +3,7 @@ layout: post
 imageOg: "https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg"
 title: "PHP - Standard PHP Library (SPL)"
 subtitle: Estrutura de dados e Tipos Abstratos de Dados
-date: 2018-09-26 12:00:25 -0300
+date: 2018-12-05 12:00:25 -0300
 categories: deselvolvimento
 excerpt: Quem já estudou ou pesquisou por algoritmos provavelmente já ouviu falar 
          em Estrutura de Dados (ED), são modos genéricos de armazenar informações 

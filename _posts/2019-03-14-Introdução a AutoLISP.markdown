@@ -16,7 +16,7 @@ author:
 <br>
 
 
-O AutoCAD é um software de CAD, Desenho Auxiliado por Cmputador, permite a criação de desenhos técnicos em 2D e modelos 
+O AutoCAD é um software de CAD, Desenho Auxiliado por Computador, permite a criação de desenhos técnicos em 2D e modelos 
 tridimensionais, utilizado em diversas áreas como engenharias, arquitetura topologia, design etc, é um dos software mais 
 utilizados para este fim. Uma característica do AutoCAD é que ele permite o uso de programação em AutoLISP para personalização 
 e estensão de suas funcionalidades.  

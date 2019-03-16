@@ -54,7 +54,7 @@ representando uma posição nos eixos __X__ __Y__ e __Z__.
 Agora imaginem uma linha desenhada nesse plano cartesiano definida por dois pontos, podemos perceber essa linha como 
 uma lista contendo duas listas internas descrevendo o ponto inicial e o ponto final da linha.  
 
-``linha = ((0 0) (3 4)``  
+``linha = ((0 0) (3 4))``  
 
 <div class="img-container">
     <img src="https://i.ibb.co/PMq3y1m/linha.png">  
@@ -195,7 +195,7 @@ A área onde definimos os parâmetros de um função pode ser dividida em duas p
 
 ``(defun teste(<parâmetros> / <variáveis locais>) ...``  
 
-Variáveis locais são os parâmetros da função e ficam do lado esquerdo da ``/``, variáveis locais ficam do lado direito 
+Variáveis associadas são os parâmetros da função e ficam do lado esquerdo da ``/``, variáveis locais ficam do lado direito 
 da ``/``, o resto são variáveis globais. Sempre defina variáveis locais para evitar sobrescrita de outros nomes de 
 variáveis, funções ou que outra função manipule uma variável alterando completamente o resultado final.  
 Uma variável local só existe dentro do copro da função, seu valor não é visto fora dela.  

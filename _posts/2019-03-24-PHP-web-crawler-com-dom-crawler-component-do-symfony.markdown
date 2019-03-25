@@ -29,8 +29,8 @@ de dados da página de forma fácil e simples.
 #### __DOM... Crawler… What the fu** is this?__
 De maneira simples vamos entender primeiramente estes conceitos.  
 O código HTML de uma página é formado por tags que formam uma estrutura de árvore com uma dentro de outras e assim 
-por diante, o DOM (Document Object Model) fornece uma representação estruturada do documento HTML para o browser 
-contendo os nós, que seriam as tags html e cada nó possuindo suas propriedades.  
+por diante, o DOM (Document Object Model) fornece uma representação estruturada no formato de uma árvore do documento 
+HTML para o browser contendo os nós, que seriam as tags html e cada nó possuindo suas propriedades.  
 
 <div class="img-container">
     <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Simpe_HTML_page_DOM.svg">  
@@ -45,7 +45,7 @@ entre sites e fazer a “leitura” destas páginas para captura de informaçõe
 muitas ferramentas de buscas hoje em dia como, por exemplo o Google, onde uma das tarefas é indexar os links dos sites 
 em seu banco de dados. Existem diversos objetivos para criar um web crawler como para analisar os links e verificar se 
 estão ativos ou não, para análise de dados, ou também para um trabalho da faculdade onde eu fiz a captura de informações 
-para treinar um algoritmo de classificação de textos :P  
+para treinar um algoritmo de classificação de textos.  :P  
 
 <div id="ref-post">
     <a href="{% post_url 2018-06-23-Clojure-Classificacao-de-comentarios-com-machine-learning %}">
@@ -110,8 +110,9 @@ utilizaremos.
 require_once "./vendor/autoload.php";
 ```
 
-As informações que iremos capturar são as críticas e notas dadas por usuários em um determinado filme de um site, 
-primeiramente precisaremos fazer uma requisição para o link para pegar a página em formato texto(html) com o Guzzle.  
+As informações que iremos capturar são as críticas e notas dadas por usuários em um determinado filme em um site sobre 
+cinema, primeiramente precisaremos fazer uma requisição para o link para pegar a página em formato texto(html) com o 
+Guzzle.  
 
 ```php
 $client = new \GuzzleHttp\Client();
@@ -149,7 +150,7 @@ estão dentro de várias divs com class ``review-card-review-holder``
 </div>  
 
 
-Então usaremos o método ``filter`` para filtrar apenas essas divs que nós queremos, o CSS Selector que instalamos 
+Então usaremos o método ``filter`` para filtrar apenas essas divs que nós queremos, o ``CSS Selector`` que instalamos 
 permite utilizarmos uma sintaxe similar ao jQuery para acessar determinado nó do DOM, podemos filtrar por qualquer 
 atributo como classe, id, name ou qualquer outro.  
 
@@ -168,7 +169,7 @@ var_dump($contentContainer->count()) ; 10
 <br>
 
 Analisando novamente a estrutura da página vemos que a nota dada pelos usuários estão em tags ``span`` com 
-class ``stareval-note`` e o texto da crítica está em divs com class ``content-txt review-card-content``. 
+class ``stareval-note`` dentro das divs que já filtramos e o texto da crítica está em divs com class ``content-txt review-card-content``. 
 
 
 <div class="img-container">

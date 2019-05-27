@@ -365,6 +365,7 @@ Funções condicionais provavelmente são uma das coisas mais importante e utili
 mais robusta que permite a própria rotina decidir o que fazer de acordo com uma dado digitado pelo usuário por exemplo 
 ou um dado criado a partir de um cálculo matemático, podendo ser utilizada diversas funções matemáticas já existentes 
 para esse cálculo, isso abre diversas possibilidades que veremos nos próximos textos.
+Comentem se gostaram, compartilhem se conhecem alguém a quem possa ser útil este texto e até o próximo.
 
 <br>
 <br>

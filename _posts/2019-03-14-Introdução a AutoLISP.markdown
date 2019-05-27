@@ -257,6 +257,22 @@ Comentem se gostaram, compartilhem se conhecem alguém a quem possa ser útil es
 
 
 <br>
+<br>
+
+<div id="ref-post">
+    <a href="{% post_url 2019-05-25-AutoLISP-funcoes-matematicas-e-condicionais %}">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Cartesian-coordinate-system.svg">
+        <div id="link-title">
+            <strong>AutoLISP - Funções matemáticas, condicionais e controle de fluxo</strong>
+        </div>
+        <div id="link-description">
+            Em AutoLisp, assim como na maioria das linguagens de programação, temos os operadores utilizados em cálculos 
+            matemáticos que realizam as operações básicas de soma (+)...
+        </div>
+    </a>
+</div>
+
+<br>
 
 ##### __Referências:__
 - GAÁL, José Alberto. Curso de AutoLISP. Campinas, SP: Desecad, 1997. 251 p.

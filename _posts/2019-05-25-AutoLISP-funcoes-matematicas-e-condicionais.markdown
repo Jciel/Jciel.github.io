@@ -111,7 +111,7 @@ __``minusp``__ – Retorna __T__``(true)`` caso o número passado for negativo, 
 
 __``rem``__ – Retorna o resto da divisão entre dois valores.
 ```cl
-(rem 10 3) ; 3
+(rem 10 3) 1 
 (rem 8 4) ; 0
 ```  
 
@@ -303,17 +303,17 @@ Vamos ver alguns exemplos.
 <br>
 
 Como vimos, a função if executa apenas uma expressão em cada caso, mas e se precisasse executar varias expressões? Para 
-isso temos a função __progm__.  
+isso temos a função __progn__.  
 
-A função progm é muito utilizada junto a função if e permite que seja possível a execução de varias expressões agrupadas 
+A função progn é muito utilizada junto a função if e permite que seja possível a execução de varias expressões agrupadas 
 como se fosse uma única expressão.  
 ```cl
 (if (T)
-    (progm
+    (progn
         (expressão 1)
         (expressão 2)
         (expressão 3))
-    (progm
+    (progn
         (expressão 4)
         (expressão 5)
         (expressão 6)))

@@ -292,6 +292,4 @@ Comentem se gostaram, compartilhem se conhecem alguém a quem possa ser útil es
 
 
 ##### __Referências:__
-- GAÁL, José Alberto. Curso de AutoLISP. Campinas, SP: Desecad, 1997. 251 p.
-- KRAMER, William. Programando em AUtoLISP. São Paulo, SP: Makron Books, s/d, 274 p.
-- AUTODESK. AutoCAD Developer Documentation. 2019. Disponível em: <https://help.autodesk.com/view/OARX/2019/PTB>
+- https://br.vuejs.org/v2/guide/components-dynamic-async.html

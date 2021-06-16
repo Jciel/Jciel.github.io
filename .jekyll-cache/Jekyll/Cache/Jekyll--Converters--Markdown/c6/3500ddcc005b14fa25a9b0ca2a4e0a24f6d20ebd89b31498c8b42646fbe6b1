@@ -1,0 +1,218 @@
+I"4<p><br />
+<br /></p>
+
+<p>Atualmente estou estudando Clojure e agora quase finalizando o sementre
+da universidade estão surgindo os trabalhos de implementação e resolvi
+fazê-los usando Clojure, por que não uma boa nota e a aprovação na
+disciplina para dar uma motivada não é não? 8D, e pretendo descrever alguns
+por aqui até para deixar meio documentado também, então vamos lá.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png" alt="" /></p>
+<div class="img-legend"><a href="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png">Fonte</a></div>
+
+<p><br /></p>
+
+<h3 id="search-a">Search A*</h3>
+
+<p>O algoritmo A* (A estrela), é um algoritmo de busca, de caminho em
+grafo, heurística, algoritmos de busca heurística utilizam informações
+extras sobre o domínio problema para guiar o processo de busca.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://maratonapuc.wikidot.com/apostilas:a-star
+http://www.dainf.ct.utfpr.edu.br/~fabro/IA_I/busca/IA_Estrategias_Busca_Inf.pdf
+http://www.cos.ufrj.br/~ines/courses/cos740/leila/cos740/apres_ia.pdf
+https://pt.wikipedia.org/wiki/Algoritmo_A*
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="função-heurística-hn">Função Heurística (<strong>h(n)</strong>)</h4>
+<p>Utilizando uma função estima-se o custo de um determinado
+nó(estado) até o objetivo final para ver o quanto esse estado é bom o
+suficiente para atingir o objetivo em relação aos outros estados, essa
+função é conhecida como função heurística (h). Essa função é específica
+para cada problema e deve ser analisada e criada de acordo com o mesmo.</p>
+
+<h4 id="função-de-custo-gn">Função de custo (<strong>g(n)</strong>)</h4>
+<p>Usando outra função (g), avalia-se o custo total para chagar do estado inicial
+até o estado que esta sendo avaliado.</p>
+
+<h4 id="função-de-avaliação-fn">Função de avaliação (<strong>f(n)</strong>)</h4>
+<p>A função global de avaliação (<strong>f(n)</strong>) dá-se pela soma da função
+heurística <strong>h(n)</strong> e a função de custo <strong>g(n)</strong>, f(n) = g(n) + h(n).</p>
+
+<p><br /></p>
+
+<p>Para esse exercício utilizei um grafo como na imagem a seguir, o objetivo
+é ir do estado A até o estado G pelo menor caminho.<br />
+<img src="https://raw.githubusercontent.com/Jciel/astar-algorithm-clojure/master/img/digrafo.png" alt="" /></p>
+
+<p><br /></p>
+
+<h4 id="criando-o-projeto"><strong>Criando o projeto</strong></h4>
+
+<p><br />
+Caso não saiba como criar um projeto em clojure, tem um artigo com uma
+introdução para criação projetos e dependências em Clojure:</p>
+<div id="ref-post">
+    <a href="/2018/Clojure-Leiningen/">
+        <img src="https://cdn-images-1.medium.com/max/1371/1*6h-IqXpvLbQemIRedaCrMg.png" />
+        <div id="link-title">
+            Clojure - Leiningen
+        </div>
+        <div id="link-description">
+            Em projetos de software, sejam grandes ou pequenos, pela
+            facilidade e otimização do tempo, busca-se a reutilização de
+            código, isso inclui também a utilização...
+        </div>
+    </a>
+</div>
+
+<p><br /></p>
+
+<p>Vou criar um projeto chamado <code class="language-plaintext highlighter-rouge">astar-algorithm-clojure</code> utilizando o
+Liningen:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lein new astar-algorithm-clojure
+</code></pre></div></div>
+
+<p>Após isso, teremos a estrutura de dirétório do projeto, irei criar todas
+as funções no arquivo padrão <code class="language-plaintext highlighter-rouge">core.clj</code> no diretório <code class="language-plaintext highlighter-rouge">src</code>.</p>
+
+<div class="img-container">
+	<img src="https://image.ibb.co/coLk38/astarclojure.png" />
+</div>
+
+<p><br />
+Usando Map criei a estrutura que irá representar o grafo da
+imagem, onde temos os estados pais e os estados filhos com o valor de
+custo para ir do estado pai até o respectivo estado filho.
+<script src="https://gist.github.com/Jciel/9790a788abc9039a1a80297dd925d9c9.js"></script></p>
+
+<p>Onde <code class="language-plaintext highlighter-rouge">:A</code> é o estado pai e <code class="language-plaintext highlighter-rouge">:C</code> e <code class="language-plaintext highlighter-rouge">:B</code> são seus estado filhos,
+<code class="language-plaintext highlighter-rouge">14</code> e <code class="language-plaintext highlighter-rouge">12</code> são os custos para ir de <code class="language-plaintext highlighter-rouge">:A</code> até os estados filhos
+respectivos e assim é com os outros estados também.</p>
+
+<p>Utilizarei valores já processados para a função heurística de cada estado,
+também usando Map para representar essa função.
+<script src="https://gist.github.com/Jciel/d1cb81a47c9f89941c9da24a00ff4cb2.js"></script></p>
+
+<p>Nesse exemplo, aplicando a função heurística para o estado <code class="language-plaintext highlighter-rouge">:A</code> retorna
+o valor <code class="language-plaintext highlighter-rouge">30</code>, para <code class="language-plaintext highlighter-rouge">:B</code> retorna <code class="language-plaintext highlighter-rouge">26</code>. Esse é o valor heurístico
+dos estados, que será somado ao custo do estado para calcular o custo
+total do caminho por esse estado.<br />
+Pode-se usar diversas formas para essa
+função heurística, como por exemplo <code class="language-plaintext highlighter-rouge">Manhattan Distance</code>, e
+<code class="language-plaintext highlighter-rouge">Euclidean Distance</code>.</p>
+
+<p><br /></p>
+
+<p>Vamos criar duas funções, <code class="language-plaintext highlighter-rouge">state-children</code> e <code class="language-plaintext highlighter-rouge">children-values</code> onde
+<code class="language-plaintext highlighter-rouge">state-children</code> recebe um estado e retorna seus estados filhos em uma lista
+e <code class="language-plaintext highlighter-rouge">children-values</code> recebe um estado e retorna o custo associado aos
+estados filhos.
+<script src="https://gist.github.com/Jciel/130a4972062245727d00f3bd207d93a6.js"></script></p>
+
+<p>Passando o estado <code class="language-plaintext highlighter-rouge">:A</code> para a função <code class="language-plaintext highlighter-rouge">state-children</code> retorna o seus
+estado filhos <code class="language-plaintext highlighter-rouge">(:C :B)</code> e para a função <code class="language-plaintext highlighter-rouge">children-values</code> retorna o
+custo associado aos seus filhos <code class="language-plaintext highlighter-rouge">(14 12)</code>.</p>
+
+<p>Agora criaremos nossas funções de custo (g) e heurística (h), a função
+<code class="language-plaintext highlighter-rouge">h</code> recebe um estado e retorna seu valor heurístico, e a função <code class="language-plaintext highlighter-rouge">g</code>
+recebe o custo total atual e o custo de um estado filho o qual se esta
+avaliando, e retorna o somatório de ambos.
+<script src="https://gist.github.com/Jciel/b94fcda1ed632655bf6be10de3fcc2d5.js"></script></p>
+
+<p>Para nosso exemplo com o estado <code class="language-plaintext highlighter-rouge">:A</code> passando para a função <code class="language-plaintext highlighter-rouge">h</code>
+retornará o valor <code class="language-plaintext highlighter-rouge">30</code> e a função <code class="language-plaintext highlighter-rouge">g</code>, pegando como exemplo o estado
+<code class="language-plaintext highlighter-rouge">:B</code> para avaliar e passando o custo total atual como <code class="language-plaintext highlighter-rouge">0</code> teremos
+<code class="language-plaintext highlighter-rouge">(0 + 12)</code>.</p>
+
+<p>A nossa função de avaliação recebera o custo do estado que esta sendo
+avaliado, o estado que esta sendo avaliado, e o custo total atual e irá
+aplica a soma da função <code class="language-plaintext highlighter-rouge">g</code> e <code class="language-plaintext highlighter-rouge">h</code>.
+<script src="https://gist.github.com/Jciel/38c950b986d14ff616944b20be8db2f5.js"></script></p>
+
+<p><br /></p>
+
+<p>A proxíma função <code class="language-plaintext highlighter-rouge">get-costs</code> é responsável por calcular o custo, usando
+a função de avaliação, para ir a cada estado filho do estado atual,
+retornando todos os custos em uma lista.
+<script src="https://gist.github.com/Jciel/de88be21b7b9134af187623cbff53ff8.js"></script>
+Tomando como custo total atual <code class="language-plaintext highlighter-rouge">10</code> e o estado atual <code class="language-plaintext highlighter-rouge">:A</code>, a função
+retornará <code class="language-plaintext highlighter-rouge">(54 52)</code>.</p>
+
+<p><br /></p>
+
+<p>A função <code class="language-plaintext highlighter-rouge">get-next-state</code> recebe o estado atual e os custos de seus
+estados filhos, e retorna o estado filho que teve o menor custo calculado 
+pela função <code class="language-plaintext highlighter-rouge">get-costs</code>, como teve o menor custo, esse estado será o
+próximo do caminho.
+<script src="https://gist.github.com/Jciel/062a662968363de56852826fc94ba1f3.js"></script></p>
+
+<p><br /></p>
+
+<p>A função <code class="language-plaintext highlighter-rouge">get-real-cost</code> soma o custo atual do caminho com o custo do
+próximo estado retornado pela <code class="language-plaintext highlighter-rouge">get-next-state</code>, para ir guardando o custo
+total do caminho.
+<script src="https://gist.github.com/Jciel/f441275f86220f0974dd8bb596e08997.js"></script></p>
+
+<p><br /></p>
+
+<p>E agora a função <code class="language-plaintext highlighter-rouge">goal-test</code> recebe um estado e apenas verifica se o
+estado é o objetivo.
+<script src="https://gist.github.com/Jciel/8f6f736b2dd638fea874fb4398d9c5cd.js"></script></p>
+
+<p><br /></p>
+
+<p>A função principal do algoritmo, <code class="language-plaintext highlighter-rouge">search-A*</code>, recebendo apenas um estado
+como parâmetro, que será o estado inicial <code class="language-plaintext highlighter-rouge">:A</code>, irá realizar uma
+chamada recursiva passando o estado, o custo total atual como 0, e um
+vetor vazio onde irá guardar os estado que farão parte do caminho <code class="language-plaintext highlighter-rouge">(linha 2)</code>.</p>
+
+<script src="https://gist.github.com/Jciel/63c6f00a9d140054dddaf589ff9c96ea.js"></script>
+
+<p>Primeiro testa se o estado atual é o ojetivo <code class="language-plaintext highlighter-rouge">(linha 4)</code>, se não for,
+verifica se o estado possui estados filhos <code class="language-plaintext highlighter-rouge">(linha 8)</code>, caso possui,
+irá pegar o custo para ir para cada um dos estado filhos em uma lista
+<code class="language-plaintext highlighter-rouge">costs</code> <code class="language-plaintext highlighter-rouge">(linha 9)</code>, após isso, irá pegar o estado filho com menor
+custo <code class="language-plaintext highlighter-rouge">get-nest-state</code> <code class="language-plaintext highlighter-rouge">(linha 10)</code>.</p>
+
+<p>Depois de descobrir o estado de menor custo, faz uma chamada recursiva
+passando o estado retornado de menor custo, <code class="language-plaintext highlighter-rouge">next-state</code>, como estado
+atual, o calculo do custo como custo total atual, e o vetor com o estado
+inserido, para o próximo processamento <code class="language-plaintext highlighter-rouge">(linha 11)</code>.<br />
+Executando essas ações recursivamente até encontrar o estado objetivo
+<code class="language-plaintext highlighter-rouge">(linha 4)</code>, ao encontrar o estado objetivo apenas vai inseri-lo no
+vetor onde estão os estados do caminho, imprimir o caminho encontrado e
+o custo total do caminho.</p>
+
+<p>E a função inicial do algoritmo que vai chamar a <code class="language-plaintext highlighter-rouge">search-A*</code>
+<script src="https://gist.github.com/Jciel/4a60270cdbbcd777a8e913f03d829215.js"></script></p>
+
+<p>Se rodarmos o algoritmo com o exemplo feito, teremos a seguinte saida:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[:A :C :E :D :G]
+43
+</code></pre></div></div>
+<p>Que é o caminho mais curto encontrado pelo algoritmo e o custo total do
+caminho.</p>
+
+<p>Uma questão que ficou em aberto nesse exemplo é quando o algoritmo
+encontrar um estado sem filhos, simplesmente irá parar, uma solução
+pode ser implmentar uma forma de retroceder até um estado que tenha
+estados filhos para continuar o processo.</p>
+
+<p><br /></p>
+
+<h4 id="conclusão"><strong>Conclusão</strong></h4>
+
+<p>O objetivo é só demostrar uma alternativa de implementação e como resolvi
+os trabalhos em Clojure, além de praticar o desenvolvimento nessa
+tecnologia que estou estudando.
+Não entrei em detalhes sobre a linguagem, espero escrever mais sobre
+futuramente, também como irá surgir novos trabalhos do curso tentarei
+resolvê-los utilizando Clojure e se possível escrever algo sobre também
+como forma de estudar.</p>
+
+<p>O código completo podem ver <a href="https://github.com/Jciel/astar-algorithm-clojure">aqui</a></p>
+
+<p>Dúvidas, sugestões… podem deixar comentários, e compartilhar caso gostou :D.</p>
+:ET

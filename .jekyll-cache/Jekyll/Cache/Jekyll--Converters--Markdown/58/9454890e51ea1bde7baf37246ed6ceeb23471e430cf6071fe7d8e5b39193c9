@@ -1,0 +1,246 @@
+I"'0<p><br /></p>
+
+<p>Desde o PHP 5 existe uma característica chamada Indução de tipos (<em>Type 
+Hinting</em>), sendo possível definir tipos de parâmetros de funções e 
+métodos, mas era somente possível definir os tipos array e objetos com 
+nome de classe.</p>
+
+<p><br /></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" alt="" /></p>
+<div class="img-legend">Nate Grant em Unsplash</div>
+
+<p><br /></p>
+
+<h4 id="o-que-temos"><strong>O que temos</strong></h4>
+
+<p><br /></p>
+
+<h5 id="php-7"><strong>PHP 7</strong></h5>
+<p>O PHP 7 trouxe muitas mudanças, além do desempenho também possibilitou a 
+definição de outros tipos escalares nos parâmetros de funções, <em>Scalar 
+typehinting</em>, permitindo declarar os tipos <em>int</em>, <em>float</em>, <em>string</em> e 
+<em>bool</em>. Além disso, podemos definir o tipo de retorno das 
+funções e métodos [direi apenas funções, mas as regras valem para 
+métodos também].</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">funcao</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$idade</span><span class="p">):</span> <span class="kt">int</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">return</span> <span class="n">idade</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Com o PHP 7.1 temos <em>Nullable Types</em>, representado pelo sinal de 
+interrogação ‘?’ antes do tipo declarado, assim podemos também definir 
+que um parâmetro pode receber o tipo definido ou <em>null</em>, isso vale 
+igualmente para o retorno da função.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">funcao</span><span class="p">(</span><span class="kt">?string</span> <span class="nv">$nome</span><span class="p">):</span> <span class="kt">?string</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mf">...</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s2">"Nome é "</span> <span class="mf">.</span> <span class="nv">$nome</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>A partir da versão 7.1, o PHP também aceita o tipo void e a versão 7.2 
+trouxe mais algumas mudanças nesse sentido, disponibilizando o <em>Object 
+typehinting</em>, assim podemos definir o tipo <em>object</em> para parâmetro e 
+retorno de funções, deixando-os mais genéricos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">funcao</span><span class="p">(</span><span class="kt">object</span> <span class="nc">User</span><span class="p">):</span> <span class="kt">object</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">ObjectQualquer</span><span class="p">();</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="o-que-vem-pela-frente"><strong>O que vem pela frente</strong></h4>
+
+<p><br /></p>
+
+<p>Hoje, 26/09/18, temos a noticia que a RFC Typed Properties 2.0 foi 
+aprovada, esta RFC introduz a possibilidade de declarar o tipo de 
+propriedades de classes, prevista para entrar na versão 7.4 do PHP.</p>
+
+<p>Com isso poderemos definir o tipo das propriedade das classes.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kd">class</span> <span class="nc">Pessoa</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">idade</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">string</span> <span class="n">nome</span><span class="p">;</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="kt">int</span> <span class="n">idade</span><span class="p">,</span> <span class="kt">string</span> <span class="n">nome</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>O suporte à declaração de tipos é independente da visibilidade da 
+propriedade, também de propriedades <em>static</em>. Segundo a RFC, a declaração de 
+tipos para propriedades permitirá todos os tipos já suportados 
+menos o <em>void</em> e <em>callable</em>.</p>
+
+<p>Tipos suportados:</p>
+<ul>
+  <li>bool</li>
+  <li>int</li>
+  <li>float</li>
+  <li>string</li>
+  <li>array</li>
+  <li>object</li>
+  <li>iterable</li>
+  <li>self</li>
+  <li>parent</li>
+  <li>qualquer nome de classe ou interface</li>
+</ul>
+
+<p>e também poderemos definir como <em>Nullable Types</em></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kd">class</span> <span class="nc">User</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">?string</span> <span class="n">nome</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="e-como-fica-a-conversão-detipos"><strong>E como fica a conversão de tipos?</strong></h5>
+<p>De acordo com a RFC, como acontece com os parâmetros e retorno de 
+funções, os tipos das propriedades também serão afetados pela directiva 
+<em>strict_types</em>. Caso a diretiva esteja setada como 1, o valor a ser 
+atribuido para a propriedade deve satisfazer exatamente o tipo 
+declarado, caso contrário seguirá a regra padrão de coerção de tipos do 
+PHP.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nc">User</span>
+<span class="p">{</span>
+   <span class="k">public</span> <span class="kt">int</span> <span class="n">idade</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$user</span> <span class="k">new</span> <span class="nc">User</span><span class="p">();</span>
+
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="n">idade</span> <span class="o">=</span> <span class="s2">"42"</span><span class="p">;</span> <span class="c1">// Dará uma exception TypeError</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="em-caso-de-herança"><strong>Em caso de herança</strong></h5>
+<p>Caso uma propriedade da classe pai for privada será possível alterar o 
+tipo dela, outros casos não serão permitidos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">class</span> <span class="nc">A</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="kt">bool</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">?int</span> <span class="nv">$c</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="kd">extends</span> <span class="nc">A</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="nv">$a</span><span class="p">;</span> <span class="c1">// legal, because A::$a is private</span>
+    <span class="k">public</span> <span class="kt">?int</span> <span class="nv">$b</span><span class="p">;</span>   <span class="c1">// ILLEGAL</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="nv">$c</span><span class="p">;</span>    <span class="c1">// ILLEGAL</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p><span class="reference-down">Exemplo retirado do texto da RFC PHP RFC: Typed Properties 2.0</span></p>
+
+<p><br /></p>
+
+<p>A RFC cita duas opções para a sintaxe de declaração de tipos em 
+propriedades de classes, sendo o primeiro similar ao que já vem sendo 
+usado na declaração de parâmetros e o segundo ao que é usado na 
+declaração do retorndo de funções.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">public</span> <span class="kt">int</span> <span class="nv">$teste</span><span class="p">;</span>
+<span class="k">public</span> <span class="nv">$teste</span><span class="o">:</span> <span class="n">int</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<p>Se a opção com <code class="language-plaintext highlighter-rouge">:</code>, <code class="language-plaintext highlighter-rouge">public $teste: int;</code> for usada, em casos de 
+definição de valores padrão, também sâo citadas duas alternativas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">public</span> <span class="nv">$teste</span><span class="o">:</span> <span class="n">int</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="k">public</span> <span class="nv">$teste</span> <span class="o">=</span> <span class="mi">42</span><span class="o">:</span> <span class="n">int</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<p>Os autores da RFC expressam sua preferência pela primeira opção, citando algumas 
+situações nas quais a segunda alternativa ficaria um pouco confusa, como em 
+casos que o valor padrão for uma expressão mais complexa como uma 
+matriz grande, a definição do tipo ficaria muito longe do
+nome da propriedade prejudicando a legibilidade do código.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kd">class</span> <span class="nc">User</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$teste</span> <span class="o">=</span> <span class="p">[</span><span class="mf">...</span>
+                     <span class="mf">...</span>
+                     <span class="mf">...</span>
+                     <span class="mf">...</span>
+                    <span class="p">]</span><span class="o">:</span> <span class="n">int</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p><span style="margin-top: 10px;">Exemplo usando a segundo alternativa.</span></p>
+
+<p><br /></p>
+
+<h4 id="conclusão"><strong>Conclusão</strong></h4>
+
+<p>Na página da RFC Typed Properties 2.0 você pode encontrar a definição 
+completa da proposta, inclusive o caso do tipo <em>callable</em> e algumas 
+questões de tipos e referência que possuem algumas situações 
+particulares que não foram citadas.</p>
+
+<p>Ao meu ver essa definição de tipos permitirá favorecer a consistência do 
+código e facilitar o tratamento de erros além de melhorar a legibilidade 
+entre outro benefícios.</p>
+
+<p>Agora apenas esperar por mais esse update no PHP.</p>
+
+<h5 id="referências"><strong>Referências:</strong></h5>
+<ul>
+  <li>https://wiki.php.net/rfc/typed_properties_v2</li>
+  <li>https://wiki.php.net/rfc/void_return_type</li>
+  <li>https://wiki.php.net/rfc/nullable_types</li>
+  <li>https://wiki.php.net/rfc/scalar_type_hints_v5</li>
+  <li>https://wiki.php.net/rfc/object-typehint</li>
+</ul>
+:ET

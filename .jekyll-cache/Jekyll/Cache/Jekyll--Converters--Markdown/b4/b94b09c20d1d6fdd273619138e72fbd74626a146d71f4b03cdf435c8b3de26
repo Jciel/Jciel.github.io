@@ -1,0 +1,342 @@
+I"Or<p>O Doctrine MongoDB ODM (Object Document Mapper), é um framework de mapeamento documento-objeto que fornece uma melhor forma de manipular, persistir objetos do PHP no MogoDB</p>
+
+<p>Antes de começar iremos assumir as seguintes premissas (entre parenteses está a versão que estou utilizando):</p>
+
+<p>Que já tenha instalado em sua máquina
+Composer(1.4.2)
+PHP(7.1.8)
+MongoDB(3.4.3)
+Conhecimento básico de ZendFramework, PHP e Mongo</p>
+
+<p>Eu estou utilizando o Manjaro Linux como Sistema Operacional.
+Então… mão na massa, ou melhor, nos comandos e códigos :)</p>
+
+<p><strong>Instalação</strong></p>
+
+<p>Primeiramente vamos instalar o driver do MongoDB para o PHP usando o pecl</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pecl install mongodb
+</code></pre></div></div>
+<p>Para verificar se esta ativa é só executar o comando <code class="language-plaintext highlighter-rouge">php -m</code> e a extensão <code class="language-plaintext highlighter-rouge">mongodb</code> deve aparecer na lista.</p>
+
+<p>Após vamos criar um projeto chamado <code class="language-plaintext highlighter-rouge">doctrineBrasilPHP</code> com o skeleton MVC do ZendFramework 3</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer create-project -n -sdev zendframework/skeleton-application doctrineBrasilPHP
+</code></pre></div></div>
+
+<p>Entramos no diretório do novo projeto com o comando <code class="language-plaintext highlighter-rouge">cd doctrineBrasilPHP</code> para instalarmos as seguintes dependências utilizando o composer</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require alcaeus/mongo-php-adapter
+
+composer require doctrine/mongodb
+
+composer require doctrine/mongodb-odm
+
+composer require doctrine/doctrine-mongo-odm-module
+</code></pre></div></div>
+
+<p>Estamos instalando a biblioteca <code class="language-plaintext highlighter-rouge">alcaeus/mongo-php-adapter</code> pois a versão do DoctrineODM ainda não suportar a versão da nova extensão do mongo, funcionando como um adapter.
+Ao instalar o <code class="language-plaintext highlighter-rouge">doctrine-mongo-odm-module</code> talvez o zend faça algumas perguntas de configuração, selecione a opção <code class="language-plaintext highlighter-rouge">1</code> para ambas.</p>
+
+<p>No seu <code class="language-plaintext highlighter-rouge">composer.json</code> você terá algo semelhante a isso</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nl">"minimum-stability"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev"</span><span class="err">,</span><span class="w">
+    </span><span class="nl">"prefer-stable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">,</span><span class="w">
+    </span><span class="nl">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"php"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.6 || ^7.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"zendframework/zend-component-installer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0 || ^0.7 || ^1.0.0-dev@dev"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"zendframework/zend-mvc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"zfcampus/zf-development-mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"alcaeus/mongo-php-adapter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"doctrine/mongodb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.6"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"doctrine/mongodb-odm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"doctrine/doctrine-mongo-odm-module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0"</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="nl">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Application\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"module/Application/src/"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Por enquanto temos o necessário instalado.</p>
+
+<p><strong>Configuração</strong></p>
+
+<p>Agora precisamos criar o nosso arquivo de configuração local do DoctrineODM com os dados da conexão e outros,
+mas para nossa felicidade o doctrine já traz um arquivo pré pronto(rsrs), vamos copiá-lo para o diretório de configuração
+do projeto do zend e renomeá-lo, assumindo que estamos na raiz do projeto execute o seguinte comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp vendor/doctrine/doctrine-mongo-odm-module/config/module.doctrine-mongo-odm.local.php.dist config/autoload/doctrine-mongo-odm.local.php
+</code></pre></div></div>
+
+<p>Nesse arquivo, da linha <code class="language-plaintext highlighter-rouge">7</code> até a linha <code class="language-plaintext highlighter-rouge">17</code>, temos a seção de configuração da conexão com o mongo, no meu caso
+coloquei a seguinte configuração:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="s1">'connection'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'odm_default'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'server'</span>           <span class="o">=&gt;</span> <span class="s1">'localhost'</span><span class="p">,</span>
+        <span class="s1">'port'</span>             <span class="o">=&gt;</span> <span class="s1">'27017'</span><span class="p">,</span>
+<span class="c1">//                'connectionString' =&gt; null,</span>
+<span class="c1">//                'user'             =&gt; null,</span>
+<span class="c1">//                'password'         =&gt; null,</span>
+        <span class="s1">'dbname'</span>           <span class="o">=&gt;</span> <span class="s2">"artigoBrasilPhp"</span><span class="p">,</span>
+        <span class="s1">'options'</span>          <span class="o">=&gt;</span> <span class="k">array</span><span class="p">()</span>
+    <span class="p">),</span>
+<span class="p">),</span>
+</code></pre></div></div>
+
+<p>Da linha <code class="language-plaintext highlighter-rouge">19</code> até a linha <code class="language-plaintext highlighter-rouge">45</code> temos configurações de cache, hydrator, etc, irremos descomentar essa seção.
+Notem na linha <code class="language-plaintext highlighter-rouge">26</code> e <code class="language-plaintext highlighter-rouge">30</code> onde indica caminho de dirretórios, precisamos criar esses diretórios.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir data
+mkdir data/DoctrineMongoODMModule
+mkdir data/DoctrineMongoODMModule/Proxy
+mkdir data/DoctrineMongoODMModule/Hydrator
+</code></pre></div></div>
+<p>Agora vamos configurar onde o DoctrineODM ira encontrar nossas classes que representam os documentos do mongo
+abra o arquivo <code class="language-plaintext highlighter-rouge">module\Application\config\module.config.php</code>, abaixo da seção <code class="language-plaintext highlighter-rouge">controllers</code> adicione o seguinte trecho
+de código:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="s1">'doctrine'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="k">__NAMESPACE__</span> <span class="mf">.</span> <span class="s1">'_driver'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver'</span><span class="p">,</span>
+            <span class="s1">'paths'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="k">__DIR__</span> <span class="mf">.</span> <span class="s1">'/../src/Document'</span><span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s1">'odm_default'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'drivers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="k">__NAMESPACE__</span> <span class="mf">.</span> <span class="s1">'\Document'</span> <span class="o">=&gt;</span> <span class="k">__NAMESPACE__</span> <span class="mf">.</span> <span class="s1">'_driver'</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<p>Notem a linha <code class="language-plaintext highlighter-rouge">'paths' =&gt; [__DIR__ . '/../src/Document']</code>, é aqui que indicamos para o Doctrine onde ele vai encontrar nossas classes dos documentos,
+então temos que criar esse diretório, novamente assumindo que estamos na raiz do projeto.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir module/Application/src/Document
+</code></pre></div></div>
+<p>A configuração esta pronta.</p>
+
+<p><strong>Primeiro uso</strong></p>
+
+<p>Para mapear as classes utilizamos “Annotations” para definirmos as propriedades, tipos, etc. Sem mais conversa vamos aos códigos.
+Vamos criar dentro do dirétorio “Documents” uma classe de nome User, no arquivo iremos importar o namespace “Annotations” do Doctrine</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+</code></pre></div></div>
+
+<p>Logo acima do nome da classe iremos dizer que ela é um documento da collection User atravéz de annotations, ficando assim:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="cd">/** @ODM\Document(collection="User") */</span>
+<span class="kd">class</span> <span class="nc">User</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Vamos definir alguns atributos para essa classe, “nome”, “email”, “idade”, e vamos mapear esses atributos para o DoctrineODM,
+a classe final ficando dessa forma:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">Application\Document</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Doctrine\ODM\MongoDB\Mapping\Annotations</span> <span class="k">as</span> <span class="no">ODM</span><span class="p">;</span>
+
+<span class="cd">/** @ODM\Document(collection="User") */</span>
+<span class="kd">class</span> <span class="nc">User</span>
+<span class="p">{</span>
+    <span class="cd">/** @ODM\Id */</span>
+    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
+
+    <span class="cd">/** @ODM\Field(type="string") */</span>
+    <span class="k">private</span> <span class="nv">$nome</span><span class="p">;</span>
+
+    <span class="cd">/** @ODM\Field(type="string") */</span>
+    <span class="k">private</span> <span class="nv">$email</span><span class="p">;</span>
+
+    <span class="cd">/** @ODM\Field(type="int") */</span>
+    <span class="k">private</span> <span class="nv">$idade</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getId</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setId</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">id</span> <span class="o">=</span> <span class="nv">$id</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getNome</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nome</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setNome</span><span class="p">(</span><span class="nv">$nome</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nome</span> <span class="o">=</span> <span class="nv">$nome</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getEmail</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setEmail</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span> <span class="o">=</span> <span class="nv">$email</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getIdade</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">idade</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setIdade</span><span class="p">(</span><span class="nv">$idade</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">idade</span> <span class="o">=</span> <span class="nv">$idade</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Na linha <code class="language-plaintext highlighter-rouge">10</code> estamos dizendo que o atributo “id” é o identificador do documento, nas linhas <code class="language-plaintext highlighter-rouge">13</code> e <code class="language-plaintext highlighter-rouge">16</code> estamos dizendo que os atributos <code class="language-plaintext highlighter-rouge">nome</code> e <code class="language-plaintext highlighter-rouge">email</code> são fields do tipo string, e na linha <code class="language-plaintext highlighter-rouge">19</code> o atributo <code class="language-plaintext highlighter-rouge">idade</code> é um field do tipo inteiro.</p>
+
+<p>Agora precisamos criar a collection, o Doctrine traz alguns commandos que facilitam a nossa vida, por enquanto vamor ver apenas o de criação, então para criar essa collection basta executar esse comando.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php vendor/doctrine/doctrine-module/bin/doctrine-module odm:schema:create
+</code></pre></div></div>
+
+<p>Se tudo estiver correto, agora temos uma collection chamada “User” na base de dados que definimos nas configurações.</p>
+
+<p>No arquivo <code class="language-plaintext highlighter-rouge">module/Application/config/module.config.php</code>, na linha <code class="language-plaintext highlighter-rouge">40</code> até <code class="language-plaintext highlighter-rouge">46</code> deixe esse trecho de código como este:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="s1">'controllers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'factories'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="nc">Controller\IndexController</span><span class="o">::</span><span class="n">class</span> <span class="o">=&gt;</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$sm</span><span class="p">){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nc">IndexController</span><span class="p">(</span><span class="nv">$sm</span><span class="p">);</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">],</span>
+</code></pre></div></div>
+<p>Nós temos um controller existente no diretório <code class="language-plaintext highlighter-rouge">Application/src/Cntroller</code>, para fins didáticos e evitar configurações vamos utilizar este controller,
+vamos acrecentar o seguinte código acima do método indexAction:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">private</span> <span class="nv">$sm</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$sm</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">sm</span> <span class="o">=</span> <span class="nv">$sm</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><strong>Nota:</strong> Não é uma boa prática fazermos como citado acima, mas para facilitar e evitar criação de arquivos e configurações, irremos proceguir desta forma.</p>
+
+<p>Vamos acrescentar o o seguinte código na <code class="language-plaintext highlighter-rouge">indexAction</code> existente nesse controller:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$documentManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">sm</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'doctrine.documentmanager.odm_default'</span><span class="p">);</span>
+
+<span class="nv">$newUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">();</span>
+
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setNome</span><span class="p">(</span><span class="s2">"Jociel Souza"</span><span class="p">);</span>
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">"teste@gmail.com"</span><span class="p">);</span>
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setIdade</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+
+<span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">persist</span><span class="p">(</span><span class="nv">$newUser</span><span class="p">);</span>
+<span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nb">flush</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Ficando desta forma</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$documentManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">sm</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'doctrine.documentmanager.odm_default'</span><span class="p">);</span>
+
+    <span class="nv">$newUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">();</span>
+
+    <span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setNome</span><span class="p">(</span><span class="s2">"Jociel Souza"</span><span class="p">);</span>
+    <span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">"teste@gmail.com"</span><span class="p">);</span>
+    <span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setIdade</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+
+    <span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">persist</span><span class="p">(</span><span class="nv">$newUser</span><span class="p">);</span>
+    <span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nb">flush</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">ViewModel</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Na linha <code class="language-plaintext highlighter-rouge">25</code> estamos recuperando o DocumentManager do DoctrineODM, responsável pelas transações do banco;</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$documentManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">sm</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'doctrine.documentmanager.odm_default'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Da linha <code class="language-plaintext highlighter-rouge">27</code> até a <code class="language-plaintext highlighter-rouge">31</code> estamos instanciando e setando os atributos de um usuário;</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$newUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">();</span>
+
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setNome</span><span class="p">(</span><span class="s2">"Jociel Souza"</span><span class="p">);</span>
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">"teste@gmail.com"</span><span class="p">);</span>
+<span class="nv">$newUser</span><span class="o">-&gt;</span><span class="nf">setIdade</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Na linha <code class="language-plaintext highlighter-rouge">33</code> e <code class="language-plaintext highlighter-rouge">34</code> estamos persistindo e commitando a mudança para o banco de dados</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">persist</span><span class="p">(</span><span class="nv">$newUser</span><span class="p">);</span>
+<span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nb">flush</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Estou usando o servidor interno do php escutando no localhost:8080, se acessarmos esse endereço ira aparecer a home do Zend Framework,
+Se tudo ocorreu bem e olharmos na nossa base de dados do mongo vamos ter um documento salvo com esses dados que definimos.
+Vamos copiar o <code class="language-plaintext highlighter-rouge">id</code> desse documento.</p>
+
+<p>Agora vamos comentar esse código da linha <code class="language-plaintext highlighter-rouge">27</code> até a <code class="language-plaintext highlighter-rouge">34</code> e acrescentar o seguinte:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">find</span><span class="p">(</span><span class="nc">User</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s2">"5999fb484d1d3443c01cd4f1"</span><span class="p">);</span>
+
+<span class="nb">var_dump</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+<span class="k">exit</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Ficando desta forma</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$documentManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">sm</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'doctrine.documentmanager.odm_default'</span><span class="p">);</span>
+
+<span class="c1">//        $newUser = new User();</span>
+<span class="c1">//</span>
+<span class="c1">//        $newUser-&gt;setNome("Jociel Souza");</span>
+<span class="c1">//        $newUser-&gt;setEmail("teste@gmail.com");</span>
+<span class="c1">//        $newUser-&gt;setIdade(25);</span>
+<span class="c1">//</span>
+<span class="c1">//        $documentManager-&gt;persist($newUser);</span>
+<span class="c1">//        $documentManager-&gt;flush();</span>
+
+
+    <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">find</span><span class="p">(</span><span class="nc">User</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s2">"5999fb484d1d3443c01cd4f1"</span><span class="p">);</span>
+
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
+    <span class="k">exit</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">ViewModel</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Na linha <code class="language-plaintext highlighter-rouge">37</code> estamos recuperando um documento do tipo <code class="language-plaintext highlighter-rouge">User</code> com o ID que passamos</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$documentManager</span><span class="o">-&gt;</span><span class="nf">find</span><span class="p">(</span><span class="nc">User</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s2">"5999fb484d1d3443c01cd4f1"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>E damos um <code class="language-plaintext highlighter-rouge">var_dump</code> para vermos o documento recuperado.</p>
+
+<p>E assim podemos persistir, manipular, e recuperar documentos do mongo utilizando apenas objetos, mantendo o paradgma e facilitando a codificação.</p>
+
+<p>Os códigos completos estão no repositório do github <a href="https://github.com/Jciel/doctrineBrasilPHP">aqui</a>.</p>
+
+<p>Vlw galera e até o próximo artigo sobre Doctrine Mongo ODM.</p>
+:ET

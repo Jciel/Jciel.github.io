@@ -1,0 +1,486 @@
+I"g�<p><br /></p>
+
+<p>Quem já estudou ou pesquisou por algoritmos provavelmente já ouviu falar 
+em Estrutura de Dados (ED), são modos genéricos de armazenar informações 
+de forma eficiente ajudando a melhorar o desempenho e entendimento de um 
+algoritmo. Tipos Abstratos de Dados (TAD), em um contexto de linguagem, 
+denota um conjunto de dados e as operações possíveis de serem realizadas 
+sob esses dados, estrutura de dados é uma forma concreta de um Tipo 
+Abstrato de dados.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" alt="" /></p>
+<div class="img-legend">Nate Grant em Unsplash</div>
+
+<p><br /></p>
+
+<h4 id="tipos-abstratos-de-dados"><strong>Tipos Abstratos de Dados</strong></h4>
+<p>Temos alguns TADs já conhecidos e bastante utilizados como Fila, Pilha, 
+Lista, Árvore, etc, esses Tipos Abstratos de Dados podem ser 
+divididos em dois grupos, lineares e não lineares.</p>
+
+<p>Os TDA’s lineares são estruturas onde os dados são arranjados 
+sequencialmente, estes possuem operações de adicionar ou remover 
+um item que podem seguir modos diferentes, vamos tomar como exemplo 
+uma <code class="language-plaintext highlighter-rouge">Fila</code> e uma <code class="language-plaintext highlighter-rouge">Pilha</code>, vamos imaginar uma fila em um caixa de um 
+restaurante, quando uma pessoa entra na fila ela se posiciona atrás de 
+todas as outras pessoas, no final da fila, se uma outra pessoa chegar, 
+ela entra atrás desta, e assim por diante, seguindo esta lógica, as 
+pessoas que estavam nas primeiras posições vão sendo atendidas e assim 
+a fila vai “andando” e os “itens” vão sendo processados, esta forma de 
+inserir e remover um item é chamado de <strong>FIFO</strong> (First In, First Out), 
+Primeiro a entrar, primeiro a sair.</p>
+
+<div class="img-container">
+    <img src="https://i.ibb.co/m9PtY1R/fila.png" />  
+</div>
+
+<p><br /></p>
+
+<p>Agora imaginamos no mesmo restaurante alguém na cozinha lavando os pratos 
+utilizados, a pessoa lava e coloca um sobre o outro ao lado da pia, 
+assim vai formando-se uma pilha de pratos lavados, um em cima do outro, 
+quando um prato é limpo é colocado no topo da pilha, caso precise ser 
+utilizado um novo prato pra servir, como seria problemático retirar o 
+último prato lá de baixo, podendo virar todos os outros, é retirado um 
+prato também do topo da pilha, esta forma de inserir e remover itens 
+é chamado de <strong>LIFO</strong> (Last In, First Out), último a entrar, primeiro a 
+sair, o último item colocado na pilha, no topo, quando for preciso 
+utilizar, será o primeiro a ser retirado.</p>
+
+<div class="img-container">
+    <img src="https://i.ibb.co/dkFpGzC/pilha.png" />  
+</div>
+
+<p><br /></p>
+
+<p>Em relação aos TDA’s do tipo árvore existem diversos tipos, o que 
+iremos ver é uma Heap, que é uma árvore binária balanceada.<br />
+Uma árvore binária é uma estrutura formada por <code class="language-plaintext highlighter-rouge">nós</code> onde são 
+“guardados” os valores e cada <code class="language-plaintext highlighter-rouge">nó</code> pode ser “ligado” à no máximo dois 
+<code class="language-plaintext highlighter-rouge">nós</code> filhos, nesta estrutura os dados são dispostos de forma 
+hierárquica, o primeiro nó da árvore é chamado <code class="language-plaintext highlighter-rouge">raiz</code> da árvore, os 
+últimos <code class="language-plaintext highlighter-rouge">nós</code> são chamados <code class="language-plaintext highlighter-rouge">nós folhas</code>.<br />
+Existem outros conceitos relacionados a árvores como grau, altura, 
+percorrer uma árvore, entre outros, não iremos entrar em detalhes aqui.</p>
+
+<div class="img-container">
+    <img src="https://i.ibb.co/cDQFxRk/arvore.png" />  
+</div>
+
+<p><br /></p>
+
+<h4 id="spl"><strong>SPL</strong></h4>
+<p>A maioria das linguagens de programação fornecem bibliotecas que 
+implementam essas abstrações, restando apenas usarmos. Desde a versão 5 
+o PHP tem <em>built in</em> a biblioteca Standard PHP Library (<strong>SPL</strong>). A SPL 
+é um conjunto de <em>interfaces</em> e classes que fornecem algumas soluções de 
+estrutura de dados pronta paras serem utilizadas, vamos ver o 
+funcionamento de algumas delas.</p>
+
+<p><br /></p>
+
+<h5 id="fila-splqueue"><strong>Fila (SplQueue)</strong></h5>
+<p>Esta estrutura, como o nome sugere, tem como comportamento o mesmo que 
+uma fila do mundo real, cada item inserindo é alocado atrás do último 
+já existente, e quando executado uma operação de remover, é retirado o 
+primeiro item no momento da fila.<br />
+Usando a <code class="language-plaintext highlighter-rouge">SplQueue</code> da SPL.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$queue</span> <span class="o">=</span> <span class="nf">SplQueue</span><span class="p">();</span>
+    <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">enqueue</span><span class="p">(</span><span class="s2">"pessoa 1"</span><span class="p">);</span>
+    <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">enqueue</span><span class="p">(</span><span class="s2">"pessoa 2"</span><span class="p">);</span>
+    <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">enqueue</span><span class="p">(</span><span class="s2">"pessoa 3"</span><span class="p">);</span>
+    <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">enqueue</span><span class="p">(</span><span class="s2">"pessoa 4"</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>No exemplo usamos a operação <code class="language-plaintext highlighter-rouge">enqueue</code> que “enfileira” itens. Para 
+remover um item usamos a operação <code class="language-plaintext highlighter-rouge">dequeue</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">echo</span> <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">dequeue</span><span class="p">();</span> <span class="c1">// Remove “pessoa 1”</span>
+    <span class="k">echo</span> <span class="nv">$queue</span><span class="o">-&gt;</span><span class="nf">dequeue</span><span class="p">();</span> <span class="c1">// Remove “pessoa 2”</span>
+</code></pre></div></div>
+<p>Cada vez que executamos essa operação ele remove o item que está atualmente 
+na primeira posição da fila.<br />
+A Fila também possui uma operação para verificar se está vazia ou não.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$queue</span> <span class="o">=</span> <span class="nf">SplQueue</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nv">$queue</span><span class="err">→</span><span class="nf">isEmpty</span><span class="p">();</span> <span class="c1">// true</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h5 id="pilha-splstack"><strong>Pilha (SplStack)</strong></h5>
+<p>Podemos imagina uma Pilha como um conjunto de itens um em cima do outro 
+formando uma “pilha” de itens. Usamos a <code class="language-plaintext highlighter-rouge">SplStack</code> para trabalhar 
+com essa estrutura, uma Pilha possui duas operações básicas, <code class="language-plaintext highlighter-rouge">push</code> para 
+empilhar um item e <code class="language-plaintext highlighter-rouge">pop</code> para desempilhar um item.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$stack</span> <span class="o">=</span> <span class="nf">SplStack</span><span class="p">();</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 1"</span><span class="p">);</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 2"</span><span class="p">);</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 3"</span><span class="p">);</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 4"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Agora podemos observar o comportamento da Pilha, podemos imaginar 
+visualmente a estrutura do exemplo da seguinte forma:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"prato 4"</span>
+<span class="s2">"prato 3"</span>
+<span class="s2">"prato 2"</span>
+<span class="s2">"prato 1"</span>
+</code></pre></div></div>
+<p>Como vimos anteriormente, quando removemos um item de uma Pilha, 
+é removido o item que está atualmente no topo da estrutura.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">echo</span> <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">pop</span><span class="p">();</span> <span class="c1">// Remove "prato 4"</span>
+    <span class="k">echo</span> <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">pop</span><span class="p">();</span> <span class="c1">// Remove "prato 3"</span>
+</code></pre></div></div>
+
+<p>Agora caso inserirmos mais itens na Pilha, observando o comportamento 
+descrito anteriormente.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 6"</span><span class="p">);</span>
+    <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"prato 7"</span><span class="p">);</span>
+</code></pre></div></div>
+<p>Seguindo o comportamento normal de uma Pilha de inserir um item sempre 
+no topo, teremos os seguintes dados:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"prato 7"</span>
+<span class="s2">"prato 6"</span>
+<span class="s2">"prato 2"</span>
+<span class="s2">"prato 1"</span>
+</code></pre></div></div>
+
+<p>A Pilha também possui a operação para verificar se existe está vazia.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$stack</span> <span class="o">=</span> <span class="nf">SplStack</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nv">$stack</span><span class="o">-&gt;</span><span class="nf">isEmpty</span><span class="p">();</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="deque"><strong>Deque</strong></h5>
+<p>A SPL possui a SplDoublyLinkedList, esta estrutura implementa um tipo 
+de Lista, a diferença é que a SplDoublyLinkedList  permite a inserção ou 
+remoção de dados em ambos os lados, sendo então um <code class="language-plaintext highlighter-rouge">Deque</code>, portando 
+podemos inserir ou remover um item tanto no que seria o início da lista 
+quanto no que seria o final da lista.</p>
+
+<p>A SplDoublyLinkedList possui quatro operações básicas, inserir no 
+início da lista, inserir no final da lista, remover do início da lista 
+e remover do final da lista.</p>
+
+<p>A operação <code class="language-plaintext highlighter-rouge">unshift</code> enfileira um item no início da lista.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$doublyLinkedList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SplDoublyLinkedList</span><span class="p">();</span>
+    <span class="n">doublyLinkedList</span><span class="o">-&gt;</span><span class="nf">unshift</span><span class="p">(</span><span class="s2">"Arroz"</span><span class="p">);</span>
+    <span class="n">doublyLinkedList</span><span class="o">-&gt;</span><span class="nf">unshift</span><span class="p">(</span><span class="s2">"Pimentão"</span><span class="p">);</span>
+    <span class="n">doublyLinkedList</span><span class="o">-&gt;</span><span class="nf">unshift</span><span class="p">(</span><span class="s2">"Cenoura"</span><span class="p">);</span>
+    <span class="n">doublyLinkedList</span><span class="o">-&gt;</span><span class="nf">unshift</span><span class="p">(</span><span class="s2">"Tomate"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Mesmo que coloquemos os itens em uma ordem inversa, quando executado a 
+operação com um item, ele é colocado sempre no início da lista. No 
+momento esse exemplo tem a seguinte estrutura:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Tomate</span>
+<span class="nc">Cenoura</span>
+<span class="nc">Pimentão</span>
+<span class="nc">Arroz</span>
+</code></pre></div></div>
+
+<p>A operação <code class="language-plaintext highlighter-rouge">push</code> enfileira um item no final da lista, vamos pegar a 
+lista anterior e adicionar um item ao final dela.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="n">doublyLinkedList</span><span class="o">-&gt;</span><span class="nf">push</span><span class="p">(</span><span class="s2">"Feijão"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Agora nossa lista está completa:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Tomate</span>
+<span class="nc">Cenoura</span>
+<span class="nc">Pimentão</span>
+<span class="nc">Arroz</span>
+<span class="nc">Feijão</span> <span class="c1">// Item inserido no final da lista com push</span>
+</code></pre></div></div>
+
+<p>Para desenfileirar temos duas operações, <code class="language-plaintext highlighter-rouge">shift</code> para remover do 
+início da lista e <code class="language-plaintext highlighter-rouge">pop</code> para remover do final da lista.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="n">doublyLinkedList</span><span class="err">→</span><span class="nf">shift</span><span class="p">();</span> <span class="c1">// Remove Tomate</span>
+    <span class="n">doublyLinkedList</span><span class="err">→</span><span class="nf">shift</span><span class="p">();</span> <span class="c1">// Remove Cenoura</span>
+    
+    <span class="n">doublyLinkedList</span><span class="err">→</span><span class="nf">pop</span><span class="p">();</span> <span class="c1">// Remove Feijão</span>
+    <span class="n">doublyLinkedList</span><span class="err">→</span><span class="nf">pop</span><span class="p">();</span> <span class="c1">// Remove Arroz</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="heap-árvore-binária"><strong>Heap (Árvore Binária)</strong></h5>
+
+<p>A classe SplHeap da SPL é uma classe abstrata que implementa uma série 
+de funcionalidades de uma Heap, sendo uma classe abstrata para usar uma 
+estrutura Heap da SPL é preciso usar as classes concretas <code class="language-plaintext highlighter-rouge">SplMaxHeap</code> 
+e <code class="language-plaintext highlighter-rouge">SplMinHeap</code>. Para inserir um item usamos a operação <code class="language-plaintext highlighter-rouge">insert</code>.</p>
+
+<h5 id="splmaxheap"><strong>SplMaxHeap</strong></h5>
+<p>A SplMaxHeap para definir a posição do valor a ser inserido na árvore 
+ela mantém sempre o maior valor como raiz da árvore, assim apresentando 
+os valores com uma ordenação decrescente.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$tree</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SplMaxHeap</span><span class="p">();</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">27</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Vamos ver os dados.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$tree</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$item</span> <span class="mf">.</span> <span class="kc">PHP_EOL</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>A saída apresentada será <code class="language-plaintext highlighter-rouge">27, 23, 21, 15, 9, 6, 3, 1</code>.</p>
+
+<h5 id="splminheap"><strong>SplMinHeap</strong></h5>
+<p>A <code class="language-plaintext highlighter-rouge">SplMinHeap</code> ao contrário da <code class="language-plaintext highlighter-rouge">SplMaxHeap</code> mantém o menor valor 
+como raiz da Árvore, apresentando os valores com ordenação crescente.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$tree</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SplMinHeap</span><span class="p">();</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">27</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+    <span class="nv">$tree</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$tree</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$item</span> <span class="mf">.</span> <span class="kc">PHP_EOL</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>A saída apresentada será <code class="language-plaintext highlighter-rouge">1, 3, 6, 9, 15, 21, 23, 27</code>.</p>
+
+<p><br /></p>
+
+<p>Sendo a <code class="language-plaintext highlighter-rouge">SplHeap</code> uma classe abstrata podemos criar nossa própria 
+classe concreta extendendo a <code class="language-plaintext highlighter-rouge">SplHeap</code> e implementando seu método 
+<code class="language-plaintext highlighter-rouge">compare</code> que é utilizado para definir a posição do valor a ser 
+inserido na árvore.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+	<span class="k">private</span> <span class="nv">$age</span><span class="p">;</span>
+
+	<span class="k">public</span> <span class="k">function</span> <span class="n">__constructor</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$age</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nv">$this</span><span class="o">-&gt;</span><span class="n">age</span> <span class="o">=</span> <span class="nv">$age</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">public</span> <span class="k">function</span> <span class="n">getAge</span><span class="p">():</span> <span class="kt">int</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">age</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">PersonHeap</span> <span class="kd">extends</span> <span class="nc">SplHeap</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">function</span> <span class="n">compare</span><span class="p">(</span><span class="nv">$personX</span><span class="p">,</span> <span class="nv">$personY</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="nv">$personX</span><span class="o">-&gt;</span><span class="nf">getAge</span><span class="p">()</span> <span class="o">&lt;=&gt;</span> <span class="nv">$personY</span><span class="err">→</span><span class="nf">getAge</span><span class="p">();</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Criamos uma classe <code class="language-plaintext highlighter-rouge">Person</code> para representar algumas entidades 
+<code class="language-plaintext highlighter-rouge">pessoas</code> que iremos inserir na estrutura, também criamos nossa classe 
+<code class="language-plaintext highlighter-rouge">PersonHeap</code> extendendo a <code class="language-plaintext highlighter-rouge">SplHeap</code>, notem o método <code class="language-plaintext highlighter-rouge">compare</code>, 
+ele deve retornar <code class="language-plaintext highlighter-rouge">-1</code> caso o primeiro valor seja menor que o 
+segundo, <code class="language-plaintext highlighter-rouge">1</code> caso contrário e <code class="language-plaintext highlighter-rouge">0</code> se ambos forem iguais.<br />
+O segundo parâmetro do método <code class="language-plaintext highlighter-rouge">compare</code> é o valor a ser inserido no 
+momento, no exemplo anterior a estrutura apresentará os valores em 
+ondem decrescente, para mostrar em ordem crescente basta alterar a 
+ordem de comparação no método <code class="language-plaintext highlighter-rouge">compare</code>, ficando da seguinte maneira:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+	<span class="k">public</span> <span class="k">function</span> <span class="n">compare</span><span class="p">(</span><span class="nv">$personX</span><span class="p">,</span> <span class="nv">$personY</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="nv">$personY</span><span class="o">-&gt;</span><span class="nf">getAge</span><span class="p">()</span> <span class="o">&lt;=&gt;</span> <span class="nv">$personX</span><span class="o">-&gt;</span><span class="nf">getAge</span><span class="p">();</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+<p>Assim quando formos percorrer os valores, será em ordem crescente.</p>
+
+<p><br /></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="nv">$person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="nv">$person3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="mi">26</span><span class="p">);</span>
+    <span class="nv">$person4</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="mi">39</span><span class="p">);</span>
+    <span class="nv">$person5</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    
+    <span class="nv">$personHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PersonHeap</span><span class="p">();</span>
+    
+    <span class="nv">$personHeap</span><span class="err">→</span><span class="nf">insert</span><span class="p">(</span><span class="nv">$person1</span><span class="p">);</span>
+    <span class="nv">$personHeap</span><span class="err">→</span><span class="nf">insert</span><span class="p">(</span><span class="nv">$person2</span><span class="p">);</span>
+    <span class="nv">$personHeap</span><span class="err">→</span><span class="nf">insert</span><span class="p">(</span><span class="nv">$person3</span><span class="p">);</span>
+    <span class="nv">$personHeap</span><span class="err">→</span><span class="nf">insert</span><span class="p">(</span><span class="nv">$person4</span><span class="p">);</span>
+    <span class="nv">$personHeap</span><span class="err">→</span><span class="nf">insert</span><span class="p">(</span><span class="nv">$person5</span><span class="p">);</span>
+    
+    
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$personHeap</span> <span class="k">as</span> <span class="nv">$person</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$person</span><span class="o">-&gt;</span><span class="nf">getAge</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>Seguindo o primeiro exemplo, de forma descendente, a saída será <code class="language-plaintext highlighter-rouge">39, 26, 15, 5, 3</code>.</p>
+
+<p>Também é possível verificar se a estrutura está vazia.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$personHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PersonHeap</span><span class="p">();</span>
+    <span class="nv">$personHeap</span><span class="o">-&gt;</span><span class="nf">isEmpty</span><span class="p">();</span> <span class="c1">//true</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="splobjectstorage"><strong>SplObjectStorage</strong></h5>
+<p>A SplObjectStorage fornece um modelo de dicionário, onde recebe um objeto 
+e cria um hash do mesmo para fazer referência a este objeto internamente, 
+permite apenas valores únicos e trabalha bem com grandes quantidades 
+de objetos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="kd">class</span> <span class="nc">Person</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="nv">$name</span><span class="p">;</span>
+    
+        <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$name</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">public</span> <span class="k">function</span> <span class="n">getName</span><span class="p">():</span> <span class="kt">string</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nv">$person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="s2">"joao"</span><span class="p">);</span>
+    <span class="nv">$person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="s2">"carlos"</span><span class="p">);</span>
+    <span class="nv">$person3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="s2">"jose"</span><span class="p">);</span>
+    <span class="nv">$person4</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="s2">"maria"</span><span class="p">);</span>
+    <span class="nv">$person5</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">(</span><span class="s2">"julieta"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Criamos uma classe <code class="language-plaintext highlighter-rouge">Person</code> e algumas instâncias dessa classe, para 
+inserir um objeto na estrutura usamos a operação <code class="language-plaintext highlighter-rouge">attach</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    
+    <span class="nv">$splObjectStorage</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SplObjectStorage</span><span class="p">();</span>
+    
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$person1</span><span class="p">);</span>
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$person2</span><span class="p">);</span>
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$person3</span><span class="p">);</span>
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$person4</span><span class="p">);</span>
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$person5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Temos algumas operações interessantes, para verificar a quantidade de 
+itens e se a estrutura contém um determinado objeto.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nb">count</span><span class="p">());</span> <span class="c1">// Retorna a quantidade de itens, no exemplo 5</span>
+    
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$person1</span><span class="p">));</span> <span class="c1">// retorna true se contém um determinado objeto</span>
+</code></pre></div></div>
+
+<p>Usamos <code class="language-plaintext highlighter-rouge">detach</code> para remover um determinado objeto.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    
+    <span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nf">detach</span><span class="p">(</span><span class="nv">$person1</span><span class="p">);</span>
+    
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$splObjectStorage</span><span class="o">-&gt;</span><span class="nb">count</span><span class="p">());</span> <span class="c1">// 4</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h5 id="splfixedarray"><strong>SplFixedArray</strong></h5>
+<p>A SPL também contém uma classe chamada SplFixedArray que implementa 
+algumas funcionalidades de arrays, algumas diferenças entre a 
+SplFixedArray e o array normal do PHP é que o SplFixedArray é definido 
+um tamanho fixo, permitido alterar posteriormente, e suporta apenas 
+índice numérico inteiro.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+    <span class="nv">$fixedArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SplFixedArray</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span> <span class="c1">// PHP Fatal error: .....</span>
+</code></pre></div></div>
+
+<p>Podemos alterar o tamanho do array.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$fixedArray</span><span class="o">-&gt;</span><span class="nf">setSize</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+    <span class="nv">$fixedArray</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>É possível também criar uma SplFixedArray a partir de um array comum.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">];</span>
+
+    <span class="nv">$fixedArray</span> <span class="o">=</span> <span class="nc">SplFixedArray</span><span class="o">::</span><span class="nf">fromArray</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+    
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$fixedArray</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="conclusão"><strong>Conclusão</strong></h4>
+<p>Como é bem pouco comentado a ideia é mostrar que existe também a 
+possibilidade de usarmos estrutura de dados em PHP e com a facilidade que 
+temos já abstraído várias estruturas com a SPL facilitando o uso, não 
+entrei em detalhes muito a fundo tanto das estruturas quanto de 
+algoritmos, quem for pesquisar mais sobre vai ver que estrutura de dados 
+e algoritmos estão interligados e tem bastante assunto teórico sobre. 
+Aprender sobre estrutura de dados ajuda também a modelagem de software 
+melhorando questões de algoritmos e mesmo entendimento de código de software 
+entre outras melhorias que o aprendizado pode trazer.<br />
+Outro link interessante sobre estrutura de dados em PHP que vale a pena 
+dar uma olhada: https://medium.com/@rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd</p>
+
+<p><br /></p>
+
+<h5 id="referências"><strong>Referências:</strong></h5>
+<ul>
+  <li>http://php.net/manual/pt_BR/spl.datastructures.php</li>
+  <li>livro PHP 7 Data Structures and Algorithms: Implement linked lists, stacks, and queues using PHP</li>
+  <li>https://www.youtube.com/watch?v=8tXgHtuj2Ko</li>
+</ul>
+:ET

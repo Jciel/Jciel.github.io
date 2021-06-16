@@ -1,0 +1,97 @@
+I"m<p>Memoization é uma técnica para otimizar chamadas de funções de alto custo de processamento, com isso podemos guardar o resultado de chamadas de funções para uma lista de determinados parâmetros evitando um recalculo de valores já processados, é fácil imaginar memoization como o cache do resultado de uma função a partir dos seus parâmetros.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" alt="" /></p>
+<div class="img-legend">Nate Grant em Unsplash</div>
+
+<p><br /></p>
+
+<p>Memoization está muito ligado ao conceito de função pura e transparência referencial.</p>
+
+<blockquote>
+  <p>A transparência referencial significa que dado um conjunto de parâmetros de entrada, a função sempre devolverá o mesmo resultado para esse conjunto parâmetros, essa função depende exclusivamente de seus parâmetros de entrada.</p>
+</blockquote>
+
+<blockquote>
+  <p>Uma função pura não deve gerar nenhum efeito colateral(side effects), não deve alterar qualquer estado da aplicação, e deve ter transparência referencial.</p>
+</blockquote>
+
+<p>Sabendo que, para uma determinada lista parâmetro de entrada teremos sempre a mesma saída, então podemos criar uma estrutura chave-valor com base nesse parâmetro e salvar este resultado, na próxima chamada dessa função com esses mesmos parâmetros não necessitará fazer todo o processamento novamente pois já temos o resultado no ‘cache’, bastando apenas recuperar esse valor já calculado.</p>
+
+<p><br /></p>
+
+<p><strong>Implementação</strong></p>
+
+<p>Iremos ver duas formas de fazer isso, salvando o cache em arquivos temporários no sistema e deixando o cache na memória.</p>
+
+<p>Iremos definir o path para os arquivos de cache</p>
+
+<script src="https://gist.github.com/Jciel/e85f284760f6e3efd35500859da3bbc3.js"></script>
+
+<p><br /></p>
+
+<p>Como vimos acima, funções puras não deve causar side effects, mas precisaremos ler e escrever de um arquivo, então criaremos duas funções separadas para essas tarefas.</p>
+
+<script src="https://gist.github.com/Jciel/b82b4ad4c0ce527068d97b447f01d972.js"></script>
+
+<script src="https://gist.github.com/Jciel/d47aecd20bb8f5a0dcf685e484ea720a.js"></script>
+
+<p>A função <code class="language-plaintext highlighter-rouge">getValue</code> fica responsável por recuperar o valor de um arquivo quando for chamada, e a função <code class="language-plaintext highlighter-rouge">storeValue</code> guarda o valor em um arquivo de cache quando necessário.</p>
+
+<p><br /></p>
+
+<p>Agora criaremos nossa função memoize, ela retorna uma Closure, uma versão <code class="language-plaintext highlighter-rouge">"memoizada"</code> da função callback que for passada, que armazena o valor de retorno em um arquivo de cache e usa o valor do cache caso já exista.</p>
+
+<script src="https://gist.github.com/Jciel/763fbff2cebe9a29340cc3ea2be8a49b.js"></script>
+
+<p>Como visto, uma função pura sempre retorna a mesma saída para a mesma entrada. Na função <code class="language-plaintext highlighter-rouge">memoize</code> criamos um hash único a partir dor parâmetros da função callback. Chamando a função <code class="language-plaintext highlighter-rouge">getValue</code> passando esse hash para verificarmos se já temos o resultado calculado para essa lista de parâmetros, caso já tivermos, retornamos esse valor sem precisar fazer o processamento novamente, senão chamamos a função callback com seus parâmetros e salvamos em cache esse resultado retornando o mesmo.</p>
+
+<p><br /></p>
+
+<p>Vamos usar como exemplo um algoritmo de recuperar n-ésimo número na sequência fibonacci, para isso criaremos duas funções, uma simples e outra utilizando a função <code class="language-plaintext highlighter-rouge">memoize</code> que acabamos de criar e vamos comparar o tempo de execução. Como esse algoritmo não é tão dispendioso em relação ao tempo, vamos adicionar um tempo de espera nas funções (unsleep).</p>
+
+<script src="https://gist.github.com/Jciel/8ee1fedaed9775985955acf960c1416f.js"></script>
+
+<script src="https://gist.github.com/Jciel/356fa085857ee47c9e141929e148af37.js"></script>
+
+<p><br /></p>
+
+<p>Iremos criar uma função para nos ajudar a medir o tempo de execução. Iremos passar as funções <code class="language-plaintext highlighter-rouge">fib</code> e <code class="language-plaintext highlighter-rouge">fibMemoize</code> para essa função que que irá executar e retornar o tempo decorrido. Essa função de captura do tempo arredonda para baixo o tempo final, então são tempos aproximados.</p>
+
+<script src="https://gist.github.com/Jciel/9a7fec5a09ffa3d21f0814da8c074aa2.js"></script>
+
+<p><br /></p>
+
+<p>Agora vamos comparar o tempo de processamento para alguns parâmetros</p>
+
+<script src="https://gist.github.com/Jciel/f47c6c53df8098856fe951875d22f39a.js"></script>
+
+<p>Quando chamamos a função <code class="language-plaintext highlighter-rouge">fib</code> passando o 6 como parâmetro, executamos duas vezes e ele retornou com pouca diferença de tempo, quando executamos com a função <code class="language-plaintext highlighter-rouge">memoize</code> a primeira vez demorou 1.0021s e guardou em cache esse valor, na segunda vez demorou 0.1003s pois já tínhamos esse valor em cache então só precisou recupera-lo. Executamos passando o 10 como parâmetro e demorou 0.4006s pois até o 6 já tínhamos o valor, então o calculo só precisou ser feito a partir desse ponto. Ao executar passando o 8 como parâmetro retornou em tempo =~0, pois como já executamos essa função até o 10, já temos o 8 calculado também.<br />
+Agora, se olharmos no diretório de arquivos temporários do sistema, existem 10 arquivos onde ficaram guardados os resultado das chamadas da função para cada parâmetro.</p>
+
+<p><br /></p>
+
+<p>Nos exemplos acima vimos como armazenar o resultado em cache no disco, isso permite um cache persistente e que pode ser acessado por múltiplos processos, mas como sabemos, leitura e escrita em disco são bastante lentas, também o espaço, assim como permissão de leitura/escrita em disco pode ser um problema e as vezes precisamos armazenar esse resultado somente durante uma execução/sessão, então o ideal seria criar esse cache em memória, vamos ver como podemos fazer isso.</p>
+
+<p>O PHP permite uma maneira de criar variáveis que são restritas a uma determinada função que são chamadas variáveis estáticas, o que precisamos fazer é alterar a função <code class="language-plaintext highlighter-rouge">memoize</code> e criar uma variável estática que servirá de cache para guardar os valores já processados.</p>
+
+<script src="https://gist.github.com/Jciel/326ec80d630cad55a5b4085fca73ac51.js"></script>
+
+<p>Chamando a função com os mesmos exemplos acima.</p>
+
+<script src="https://gist.github.com/Jciel/de328f27dd62d1c9b4ea9deeb9f2994e.js"></script>
+
+<p>Assim temos uma execução relativamente mais rápida por utilizar a memoria RAM, então não temos o tempo de I/O em disco.</p>
+
+<p><br /></p>
+
+<p><strong>Conclusão</strong><br />
+Memoization pode ser uma boa ideia para otimizar alguns trechos de códigos mais custosos, mas tem algumas desvantagens, como observamos no primeiro exemplo, a função cria um arquivo temporário para cada parâmetro e/ou lista de parâmetros diferentes, isso pode criar uma necessidade de mais memória em disco ou teríamos que criar uma rotina para limpar esses arquivos em um período de tempo caso necessário.</p>
+
+<p>Se usado a memória RAM também podemos ter algum problema de consumir uma grande quantidade para salvar os resultados da função na variável cache.</p>
+
+<p>Então o mais ideal seria usar essa técnica pontualmente e fazer alguns testes de consumo dos recursos em alguns casos de grande uso.</p>
+
+<p>Os códigos de exemplos foram rodados usando o PHP 7.2</p>
+
+<p>Referência: Livro <a href="https://www.amazon.com/Pro-Functional-PHP-Programming-Optimization/dp/1484229576">Pro PHP Functional Programming</a></p>
+:ET

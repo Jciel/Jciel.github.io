@@ -51,6 +51,16 @@
           <nav class="cover-navigation navigation--social">
             <ul class="navigation">
 
+            {% if site.author.twitch_username %}
+              <!-- Twitch -->
+              <li class="navigation__item">
+                <a href="https://www.twitch.tv/{{ site.author.twitch_username }}" title="@{{ site.author.twitch_username }} on twitch.tv" target="_blank">
+                  <i class="icon icon-social-twitch"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            {% endif %}
+
             {% if site.author.twitter_username %}
               <!-- Twitter -->
               <li class="navigation__item">
@@ -61,15 +71,15 @@
               </li>
             {% endif %}
 
-            {% if site.author.facebook_username %}
-              <!-- Facebook -->
-              <li class="navigation__item">
-                <a href="http://fb.me/{{ site.author.facebook_username }}" title="{{ site.author.facebook_username }} on Facebook" target="_blank">
-                  <i class="icon icon-social-facebook"></i>
-                  <span class="label">Facebook</span>
-                </a>
-              </li>
-            {% endif %}
+<!--            {% if site.author.facebook_username %}-->
+<!--              &lt;!&ndash; Facebook &ndash;&gt;-->
+<!--              <li class="navigation__item">-->
+<!--                <a href="http://fb.me/{{ site.author.facebook_username }}" title="{{ site.author.facebook_username }} on Facebook" target="_blank">-->
+<!--                  <i class="icon icon-social-facebook"></i>-->
+<!--                  <span class="label">Facebook</span>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            {% endif %}-->
 
             {% if site.author.linkedin_username %}
               <!-- LinkedIn -->

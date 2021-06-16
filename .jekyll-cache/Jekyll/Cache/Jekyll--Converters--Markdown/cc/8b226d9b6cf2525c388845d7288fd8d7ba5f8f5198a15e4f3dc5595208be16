@@ -1,0 +1,337 @@
+I"s�<p><br /></p>
+
+<p>Depois de ver uma introdução sobre AutoLISP no primeiro texto (<a href="/2019/Introdu%C3%A7%C3%A3o-a-AutoLISP/">Introdução a AutoLISP</a>)  vamos 
+ver que existem muito mais coisas para explorar e que podem ajudar a desenvolver 
+uma rotina mais robusta e poderosa para atumatizar muitas tarefas dentro do 
+ambiente do AutoCAD.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*oT0-Tqda8sGMdKH0SHPbOw.jpeg" alt="" /></p>
+<div class="img-legend">Nate Grant em Unsplash</div>
+
+<p><br /></p>
+
+<h4 id="operadores-e-funções-matemáticos"><strong>Operadores e funções matemáticos</strong></h4>
+<p>Em AutoLisp, assim como na maioria das linguagens de programação, temos os operadores utilizados em cálculos matemáticos 
+que realizam as operações básicas de soma (+), subtração (-), multiplicação (*), e divisão (/). Também temos os 
+operadores de incremento (+) e decremento (-), apesar de chamar de operadores, em AutoLISP eles tambem são funções.</p>
+
+<p><br /></p>
+
+<p>Vamos ver alguns exemplos utilizando operadores matemáticos, como vimos no artigo anterior, o AutoLISP utiliza a notação 
+prefixa, ou seja, o operador vem antes dos operandos.</p>
+
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">+</span> <span class="mi">22</span><span class="p">)</span> <span class="c1">; 4</span>
+<span class="p">(</span><span class="nb">-</span> <span class="mi">5</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; 3</span>
+<span class="p">(</span><span class="nb">*</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">; 6</span>
+<span class="p">(</span><span class="nb">/</span> <span class="mi">8</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">; 2</span>
+</code></pre></div></div>
+
+<p>E os operadores de incremento e decremento.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">1+</span><span class="p">)</span> <span class="c1">; 2</span>
+<span class="p">(</span><span class="nb">1-</span><span class="p">)</span> <span class="c1">; 0</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>Em alguns casos precisamos executar alguns cálculos mais complexos e talvez seja difícil executá-los apenas com as 
+operações básicas, então o AutoLISP disponibiliza algumas funções matemáticas prontas, vamos ver alguns exemplos.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">abs</code></strong> – Retorna o valor absoluto de um número.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">abs</span> <span class="mi">-9</span><span class="p">)</span> <span class="c1">; 9</span>
+<span class="p">(</span><span class="nb">abs</span> <span class="mf">-41.6</span><span class="p">)</span> <span class="c1">; 41.6</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">atan</code></strong> – Retorna o arcotangente de um valor. Devemos lembrar que o resultado retornado será sempre em radianos e caso 
+passado dois valores por parâmetro é retornado o arcotangente do primeiro valor dividido pelo segundo.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">atan</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; 1.40</span>
+<span class="p">(</span><span class="nb">atan</span> <span class="mi">9</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">; 1.24</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">cos</code></strong> – Retorna o co-seno de um ângulo passado por parâmetros</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">cos</span> <span class="mi">30</span><span class="p">)</span> <span class="c1">; 0.15</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">exp</code></strong> – Retorna o antilogaritmo natural de um valor, o resultado será sempre um real.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">exp</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">; 20.0855</span>
+
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">expt</code></strong> – Retorna a exponenciação de um valor elevado a outro.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">expt</span> <span class="mi">3</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; 9</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">gcd</code></strong> – Retorna o máximo denominador comum entre dois números.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">gcd</span> <span class="mi">6</span> <span class="mi">9</span><span class="p">)</span> <span class="c1">; 3</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">log</code></strong> – Retorna o logaritmo natural de um valor, o resultado será sempre um real</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">log</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; 1.79176</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">max</code></strong> – Retorna o maior valor entre dois números.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">max</span> <span class="mi">9</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; 9</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">min</code></strong> – Retorna o menor valor entre dois números.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">min</span> <span class="mi">6</span> <span class="mi">9</span><span class="p">)</span> <span class="c1">; 6</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">minusp</code></strong> – Retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> caso o número passado for negativo, caso contrário retorna <strong>nil</strong><code class="language-plaintext highlighter-rouge">(false)</code>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">minusp</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; nil</span>
+<span class="p">(</span><span class="nb">minusp</span> <span class="mi">-6</span><span class="p">)</span> <span class="c1">; T</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">rem</code></strong> – Retorna o resto da divisão entre dois valores.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">rem</span> <span class="mi">10</span> <span class="mi">3</span><span class="p">)</span> <span class="mi">1</span> 
+<span class="p">(</span><span class="nb">rem</span> <span class="mi">8</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">; 0</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">sqrt</code></strong> – Retorna a raiz quadrada de um valor, o resultado sempre será um número real.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">sqrt</span> <span class="mi">9</span><span class="p">)</span> <span class="c1">; 3.0</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">zerop</code></strong> – Retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se o número passado for 0, caso contrário retorna <strong>nil</strong><code class="language-plaintext highlighter-rouge">(false)</code>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">zerop</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">zerop</span> <span class="mi">5</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br />
+Além dessas, existem diversas outras que podem ser vistas na documentação oficial <a href="http://help.autodesk.com/view/OARX/2019/PTB/?guid=GUID-FC14467C-63B9-4400-8C6A-266D21C846AE">Arithmetic Functions Reference</a>.<br />
+Todas essas funções podem ser utilizadas para realizar cálculos matemáticos, vamos ver alguns exemplos:</p>
+
+<ul>
+  <li>Calcular f = (2 + 4) * (3 -5)
+    <div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">*</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">2</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="nb">-</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">))</span> <span class="c1">; -12</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Calcular volume de esfera de raio 5. <code class="language-plaintext highlighter-rouge">V = 4 * π r³ / 3</code>
+    <div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">*</span> <span class="p">(</span><span class="nb">*</span> <span class="mi">4</span> <span class="mf">3.14</span><span class="p">)</span> <span class="p">(</span><span class="nb">expt</span> <span class="mi">5</span> <span class="mi">3</span><span class="p">))</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="funções-lógicas-e-de-comparação"><strong>Funções lógicas e de comparação</strong></h4>
+
+<p>Uma das características de um software é poder comparar e verificar resultados e valores podendo assim, tomar alguma 
+decisão sobre esses valores, para isso existem algumas funções bastante úteis, essas funções normalmente trabalham com 
+dois valores comparando-os e retornando um valor booleano <strong>T</strong> <code class="language-plaintext highlighter-rouge">(true)</code> ou <strong>nil</strong> <code class="language-plaintext highlighter-rouge">(false)</code>,  vamos ver algumas 
+delas.</p>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">=</code></strong> Retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se <strong>todos</strong> os valores forem <strong>iguais</strong>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">/=</code></strong> Compara dois valores e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se <strong>ambos</strong> forem <strong>diferentes</strong>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">/=</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; nil</span>
+<span class="p">(</span><span class="nb">/=</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">; T</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">&lt;</code></strong> Compara dois valores e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se o primeiro for <strong>menor</strong> que o segundo.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">&lt;</span> <span class="mi">2</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&lt;</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">&lt;=</code></strong> Compara dois valores e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se o primeiro for <strong>menor</strong> ou <strong>igual</strong> ao segundo.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">&lt;=</span> <span class="mi">2</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&lt;=</span> <span class="mi">6</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&lt;=</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">&gt;</code></strong> Compara dois valores e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> caso o primeiro for <strong>maior</strong> que o segundo.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">&gt;</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&gt;</span> <span class="mi">2</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">&gt;=</code></strong> Compara dosi valores e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> caso o primeiro for <strong>maior</strong> ou <strong>igual</strong> ao segundo.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">&gt;=</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&gt;=</span> <span class="mi">6</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">&gt;=</span> <span class="mi">2</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">and</code></strong> Compara duas expressões e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se <strong>ambas</strong> forem <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">and</span> <span class="nv">T</span> <span class="nv">T</span><span class="p">)</span> <span class="c1">; T</span>
+</code></pre></div></div>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">um</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">))</span> <span class="c1">; comparamos dois números e definimos o resultado (T) na variável um.</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">dois</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">))</span> <span class="c1">; comparamos dois números e definimos o resultado na variável dois.</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">tres</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span> <span class="c1">; ; comparamos dois números e definimos o resultado (nil) na variável tres</span>
+<span class="p">(</span><span class="nb">and</span> <span class="nv">um</span> <span class="nv">dois</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">and</span> <span class="nv">um</span> <span class="nv">tres</span><span class="p">)</span> <span class="c1">; nil</span>
+<span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">))</span> <span class="c1">; T</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">or</code></strong> Compara duas ou mais expressões e retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se pelo menos <strong>uma</strong> das expressões for <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">or</span> <span class="nv">T</span> <span class="nv">T</span> <span class="nv">nill</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">1</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">not</code></strong> Retorna <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> se o valor passado for <strong>nil</strong>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">not</span> <span class="no">nil</span><span class="p">)</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="nb">not</span> <span class="nv">T</span><span class="p">)</span> <span class="c1">; nil</span>
+</code></pre></div></div>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">v1</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">))</span> <span class="c1">; T</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">v2</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">))</span> <span class="c1">; nil</span>
+
+<span class="p">(</span><span class="nb">not</span> <span class="nv">v1</span><span class="p">)</span> <span class="c1">; nil</span>
+<span class="p">(</span><span class="nb">not</span> <span class="nv">v2</span><span class="p">)</span> <span class="c1">; T</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Vamor ver alguns exemplos, podem ser executados diretamente no prompt de comandos do AutoCAD, mas antes tente resolver 
+sem executar. :)</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">&lt;=</span> <span class="mi">5</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">5</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">=</span> <span class="s">"a"</span> <span class="s">"a"</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">5</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">/=</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">3</span> <span class="mi">8</span><span class="p">))</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">/=</span> <span class="mi">6</span> <span class="mi">6</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">9</span> <span class="mi">5</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">7</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">9</span> <span class="mi">7</span><span class="p">))</span> <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">/=</span> <span class="mi">5</span> <span class="mi">5</span><span class="p">)</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">6</span> <span class="mi">6</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="controle-do-fluxo-de-execução"><strong>Controle do fluxo de execução</strong></h4>
+
+<p>Outra característica de um software é poder tomar decisões conforme os dados são processados e assim poder escolher as 
+próximas operações a serem executadas, para isso o AutoLISP disponibiliza algumas funções para implementação dessas 
+funcionalidades, vamos ver algumas das mais importantes e utilizadas.</p>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">if</code></strong> É uma função condicional usada para avaliar uma expressão (condição), caso a condição seja verdadeira 
+<strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> a expressão logo a seguir é executada, caso contrário, é evitado a expressão seguinte e executado a 
+próxima.</p>
+
+<p>Nesse pequeno pseudocódigo, caso a condição seja <strong>T</strong><code class="language-plaintext highlighter-rouge">(true)</code> é executada a <strong>operação 1</strong>, caso contrário é 
+executada a <strong>operação 2</strong>.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">condi</span><span class="err">çã</span><span class="nv">o</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">opera</span><span class="err">çã</span><span class="nv">o</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">opera</span><span class="err">çã</span><span class="nv">o</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Vamos ver alguns exemplos.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="p">(</span><span class="k">setq</span> <span class="nv">a</span> <span class="mi">5</span><span class="p">)</span>
+   <span class="p">(</span><span class="k">setq</span> <span class="nv">a</span> <span class="mi">10</span><span class="p">))</span> <span class="c1">; Qual o valor de a?</span>
+</code></pre></div></div>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nb">&gt;=</span> <span class="mi">6</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">b</span> <span class="mi">9</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">b</span> <span class="mi">3</span><span class="p">))</span> <span class="c1">; Qual o valor de b</span>
+</code></pre></div></div>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">idade</span> <span class="p">(</span><span class="nv">getint</span> <span class="s">"\nDigite sua idade: "</span><span class="p">))</span>
+<span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">idade</span> <span class="mi">18</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce é maior de idade"</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce é menor de idade"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Como vimos, a função if executa apenas uma expressão em cada caso, mas e se precisasse executar varias expressões? Para 
+isso temos a função <strong>progn</strong>.</p>
+
+<p>A função progn é muito utilizada junto a função if e permite que seja possível a execução de varias expressões agrupadas 
+como se fosse uma única expressão.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">T</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">progn</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">progn</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">6</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">strA</span> <span class="p">(</span><span class="nv">getstring</span> <span class="s">"Digite a primeira palavra: "</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">strB</span> <span class="p">(</span><span class="nv">getstring</span> <span class="s">"Digite a segunda palavra: "</span><span class="p">))</span>
+<span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="nv">strlen</span> <span class="nv">strA</span><span class="p">)</span> <span class="p">(</span><span class="nv">strlen</span> <span class="nv">strB</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">progn</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="s">"As duas palavras tem o mesmo tamanho"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="s">"O tamanho das palavras é: "</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="p">(</span><span class="nv">strlen</span> <span class="nv">strA</span><span class="p">)))</span>
+    <span class="p">(</span><span class="k">progn</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="s">"As palavras tem tamnhos diferentes"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="s">"O tamanho da primeira palavra é: "</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="p">(</span><span class="nv">strlen</span> <span class="nv">strA</span><span class="p">))</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="s">"O Tamanho da segunda palavra é: "</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">print</span> <span class="p">(</span><span class="nv">strlen</span> <span class="nv">strB</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">cond</code></strong> É uma função condicional que avalia qual das opções é verdadeira e executa uma expressão correspondente, 
+<strong>cond</strong> permite que seja testada múltiplas condições.</p>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">cond</span>
+    <span class="p">((</span><span class="nv">&lt;condi</span><span class="err">çã</span><span class="nv">o&gt;</span><span class="p">)</span> <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">((</span><span class="nv">&lt;condi</span><span class="err">çã</span><span class="nv">o&gt;</span><span class="p">)</span> <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="p">((</span><span class="nv">&lt;condi</span><span class="err">çã</span><span class="nv">o&gt;</span><span class="p">)</span> <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="p">((</span><span class="nv">&lt;condi</span><span class="err">çã</span><span class="nv">o&gt;</span><span class="p">)</span> <span class="p">(</span><span class="nv">express</span><span class="err">ã</span><span class="nv">o</span> <span class="mi">4</span><span class="p">)))</span>
+</code></pre></div></div>
+<div class="language-cl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">initget</span> <span class="mi">1</span> <span class="s">"E D C B"</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">direcao</span> <span class="p">(</span><span class="nv">getkword</span> <span class="s">"\nEscolha a direção da cota [Esquerda/Direita/Cima/Baixo] "</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">cond</span>
+    <span class="p">((</span><span class="nb">=</span> <span class="nv">direcao</span> <span class="s">"e"</span><span class="p">)</span> <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce escloheu Esquerda"</span><span class="p">))</span>
+    <span class="p">((</span><span class="nb">=</span> <span class="nv">direcao</span> <span class="s">"d"</span><span class="p">)</span> <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce escloheu Direita"</span><span class="p">))</span>
+    <span class="p">((</span><span class="nb">=</span> <span class="nv">direcao</span> <span class="s">"c"</span><span class="p">)</span> <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce escloheu Cima"</span><span class="p">))</span>
+    <span class="p">((</span><span class="nb">=</span> <span class="nv">direcao</span> <span class="s">"b"</span><span class="p">)</span> <span class="p">(</span><span class="nb">print</span> <span class="s">"Voce escloheu Baixo"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="conclusão"><strong>Conclusão</strong></h4>
+<p>Funções condicionais provavelmente são uma das coisas mais importante e utilizadas para desenvolver uma rotina AutoLISP 
+mais robusta que permite a própria rotina decidir o que fazer de acordo com uma dado digitado pelo usuário por exemplo 
+ou um dado criado a partir de um cálculo matemático, podendo ser utilizada diversas funções matemáticas já existentes 
+para esse cálculo, isso abre diversas possibilidades que veremos nos próximos textos.
+Comentem se gostaram, compartilhem se conhecem alguém a quem possa ser útil este texto e até o próximo.</p>
+
+<p><br />
+<br /></p>
+
+<p>Se ainda não leu o primeiro texto sobre AutoLISP segue o link.</p>
+<div id="ref-post">
+    <a href="/2019/Introdu%C3%A7%C3%A3o-a-AutoLISP/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Cartesian-coordinate-system.svg" />
+        <div id="link-title">
+            <strong>Introdução a AutoLISP</strong>
+        </div>
+        <div id="link-description">
+            O AutoLISP é um dialeto da linguagem LISP, uma das mais antigas e utilizadas até hoje, o AutoLISP foi incorporado no 
+            AutoCAD em 1996 e tem sido amplamente utilizado para customização do ambiente...
+        </div>
+    </a>
+</div>
+
+<p><br /></p>
+
+<h5 id="referências"><strong>Referências:</strong></h5>
+<ul>
+  <li>GAÁL, José Alberto. Curso de AutoLISP. Campinas, SP: Desecad, 1997. 251 p.</li>
+  <li>KRAMER, William. Programando em AUtoLISP. São Paulo, SP: Makron Books, s/d, 274 p.</li>
+  <li>AUTODESK. AutoCAD Developer Documentation. 2019. Disponível em: <a href="https://help.autodesk.com/view/OARX/2019/PTB">https://help.autodesk.com/view/OARX/2019/PTB</a></li>
+</ul>
+:ET

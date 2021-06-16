@@ -11,10 +11,10 @@ author:
   name: 'Jociel Souza'
   email: jcielsouza@gmail.com
   twitter_username: MaisUmDevNoTT
-  facebook_username: jociel.svs
   github_username:  Jciel
   linkedin_username:  jcielsouza
   medium:  jocielsvs
+  twitch_username:  maisumdevnatwitch
 
 defaults:
   -
@@ -41,5 +41,9 @@ kramdown:
   # do not replace newlines by <br>s
   hard_wrap: false
 
-gems: ['jekyll-paginate', 'jekyll-seo-tag']
+gems: [
+    'jekyll-paginate',
+    'jekyll-seo-tag'
+]
+
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']

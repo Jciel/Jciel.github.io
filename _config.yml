@@ -47,3 +47,5 @@ gems: [
 ]
 
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+
+plugins: ['jekyll-paginate', 'jekyll-seo-tag']
